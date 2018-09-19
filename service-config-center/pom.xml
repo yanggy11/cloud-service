@@ -10,8 +10,8 @@
         <version>2.0.1.RELEASE</version>
     </parent>
 
-    <groupId>com.yanggy.cloud</groupId>
-    <artifactId>service-center</artifactId>
+    <groupId>com.yang.cloud</groupId>
+    <artifactId>service-config-center</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -42,11 +42,26 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -63,7 +78,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>service-center</finalName>
+        <finalName>service-config-center</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

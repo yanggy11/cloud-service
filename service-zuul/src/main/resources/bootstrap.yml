@@ -1,0 +1,30 @@
+server:
+  port: 1987
+spring:
+  application:
+    name: zuul
+  cloud:
+    config:
+      uri: http://localhost:8887
+      name: zuul # 要读取的配置文件application属性
+      profile: ${config.profile:dev} # default config profile
+      username: yanggy11
+      password: ygy591932230
+#zuul:
+#  routes:
+#    resources:
+#      path: /api/resources/**
+#      service-id: resources
+#    web:
+#      path: /api/web/**
+#      service-id: web
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 300
+    lease-expiration-duration-in-seconds: 900
+  client:
+    serviceUrl:
+      defaultZone: http://39.107.97.132:8000/eureka/
+
+ribbon:
+  ReadTimeout: 10000

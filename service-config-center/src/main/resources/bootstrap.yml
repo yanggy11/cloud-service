@@ -1,0 +1,34 @@
+server:
+  port: 8887
+spring:
+  application:
+    name: service-config-center
+  cloud:
+    config:
+      uri: http://localhost:8887
+      server:
+        git:
+          uri: https://github.com/yanggy11/cloud-config-repo
+          username: yanggy11
+          password: ygy591932230
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    addresses: 39.107.97.132:5672,39.107.97.132:5673,39.107.97.132:5674
+    username: guest
+    password: guest
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 300
+    lease-expiration-duration-in-seconds: 900
+  client:
+    serviceUrl:
+      defaultZone: http://39.107.97.132:8000/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
+
