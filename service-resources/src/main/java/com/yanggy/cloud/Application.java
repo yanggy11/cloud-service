@@ -1,9 +1,7 @@
 package com.yanggy.cloud;
 
 import com.yanggy.cloud.config.JdbcProperties;
-import com.yanggy.cloud.config.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -26,11 +24,9 @@ public class Application {
     @Autowired
     private JdbcProperties jdbcProperties;
 
-    @Autowired
-    private Properties properties;
 
     @GetMapping(value = "/test")
     public Object test() {
-        return properties;
+        return jdbcProperties;
     }
 }

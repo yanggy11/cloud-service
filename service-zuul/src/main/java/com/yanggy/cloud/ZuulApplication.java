@@ -1,6 +1,5 @@
 package com.yanggy.cloud;
 
-import com.yanggy.cloud.config.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,13 +21,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class ZuulApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZuulApplication.class, args);
-    }
-
-    @Autowired
-    private Properties properties;
-
-    @GetMapping(value = "/test")
-    public Object test() {
-        return properties;
     }
 }
