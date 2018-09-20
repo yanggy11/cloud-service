@@ -10,6 +10,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.Data;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +28,7 @@ import utils.ResponseEntityDto;
  * @Date 9/20/18 09:06
  */
 
+@Data
 public class PreRequestFilter extends ZuulFilter {
 
 	private RestTemplate restTemplate;
@@ -63,14 +65,11 @@ public class PreRequestFilter extends ZuulFilter {
 
 			return null;
 		}
-
 		// 验证token
 		Map<String, String> map = new HashMap<>();
 		map.put("token", token);
 		ResponseEntityDto<User> response = restTemplate.postForObject("http://RESOURCES/auth/authorization", map,
 				ResponseEntityDto.class);
-		System.out.println(response);
-
 		if(requestContext.getRequest().getRequestURI().contains("/api/web/upload")) {
 			return null;
 		}
@@ -105,22 +104,6 @@ public class PreRequestFilter extends ZuulFilter {
 	}
 
 	public PreRequestFilter(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
-	}
-
-	public String getAuthHeader() {
-		return authHeader;
-	}
-
-	public void setAuthHeader(String authHeader) {
-		this.authHeader = authHeader;
-	}
-
-	public RestTemplate getRestTemplate() {
-		return restTemplate;
-	}
-
-	public void setRestTemplate(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
 }
