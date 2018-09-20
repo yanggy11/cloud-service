@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yanggy.cloud.config.enums.ErrorCode;
 import com.yanggy.cloud.dto.Page;
-import com.yanggy.cloud.dto.UploadDto;
 import com.yanggy.cloud.entity.User;
 import com.yanggy.cloud.param.UserParam;
-import com.yanggy.cloud.service.IFileUploadService;
 import com.yanggy.cloud.service.IUserService;
 import com.yanggy.cloud.utils.ResponseEntityBuilder;
 import com.yanggy.cloud.utils.ResponseEntityDto;
@@ -31,9 +29,6 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
-
-    @Autowired
-    private IFileUploadService fileUploadService;
 
     @RequestMapping(value = "/getUserById", method = RequestMethod.POST)
     public ResponseEntityDto<?> getUserById(@RequestBody UserParam userParam) {
@@ -139,20 +134,6 @@ public class UserController {
         try {
             userService.editPassword(userParam);
             res = ResponseEntityBuilder.buildNormalResponseEntity();
-        } catch (Exception e) {
-            res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
-        }
-
-        return res;
-    }
-
-    @RequestMapping(value = "/uploa", method = RequestMethod.POST)
-    public ResponseEntityDto<?> uploadImage(UploadDto uploadDto) {
-
-        ResponseEntityDto<?> res;
-
-        try {
-            res = ResponseEntityBuilder.buildNormalResponseEntity(fileUploadService.fileUpload(uploadDto.getFile()[0]));
         } catch (Exception e) {
             res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
         }

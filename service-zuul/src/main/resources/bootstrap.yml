@@ -10,14 +10,8 @@ spring:
       profile: ${config.profile:dev} # default config profile
       username: yanggy11
       password: ygy591932230
-#zuul:
-#  routes:
-#    resources:
-#      path: /api/resources/**
-#      service-id: resources
-#    web:
-#      path: /api/web/**
-#      service-id: web
+zuul:
+  sensitive-headers:
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300

@@ -1,15 +1,14 @@
 package com.yanggy.cloud.service.impl;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-
+import com.yanggy.cloud.config.oss.AliOssUtils;
+import com.yanggy.cloud.service.IFileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.yanggy.cloud.config.oss.AliOssUtils;
-import com.yanggy.cloud.service.IFileUploadService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 /**
  * @author derrick.yang

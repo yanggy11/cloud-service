@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.StreamUtils;
@@ -38,7 +39,7 @@ public class PreRequestFilter extends ZuulFilter {
 
 	@Override
 	public int filterOrder() {
-		return 1;
+		return 2;
 	}
 
 	@Override
@@ -69,6 +70,10 @@ public class PreRequestFilter extends ZuulFilter {
 		ResponseEntityDto<User> response = restTemplate.postForObject("http://RESOURCES/auth/authorization", map,
 				ResponseEntityDto.class);
 		System.out.println(response);
+
+		if(requestContext.getRequest().getRequestURI().contains("/api/web/upload")) {
+			return null;
+		}
 
 		InputStream in = null;
 		try {

@@ -24,24 +24,7 @@ import com.yanggy.cloud.config.filters.PreRequestFilter;
 @EnableZuulProxy
 @RestController
 public class ZuulApplication {
-	
-	@Value("${jwt.header}")
-	private String auth_header;
     public static void main(String[] args) {
         SpringApplication.run(ZuulApplication.class, args);
-    }
-
-    @Bean
-    @LoadBalanced
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    @Bean
-    public PreRequestFilter zuulFilter() {
-        PreRequestFilter zuulFilter = new PreRequestFilter(restTemplate());
-        zuulFilter.setAuthHeader(auth_header);
-        
-        return zuulFilter;
     }
 }
