@@ -1,6 +1,8 @@
 package com.yanggy.cloud.config.dataSource;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import javax.annotation.PreDestroy;
+import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -9,13 +11,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.annotation.PreDestroy;
-import javax.sql.DataSource;
+import com.alibaba.druid.pool.DruidDataSource;
 
 /**
  * Created by yangguiyun on 2017/9/21.

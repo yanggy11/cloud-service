@@ -1,11 +1,12 @@
 package com.yanggy.cloud.config.security;
 
-import com.yanggy.cloud.config.jwt.JwtAuthenticationTokenFilter;
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,12 +17,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.annotation.Resource;
+import com.yanggy.cloud.config.jwt.JwtAuthenticationTokenFilter;
 
 /**
  * Created by yangguiyun on 2017/9/26.
  */
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -45,13 +47,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 装载BCrypt密码编码器
     @Bean
     public MessageDigestPasswordEncoder passwordEncoder() {
-        return new MessageDigestPasswordEncoder();
+        return new MessageDigestPasswordEncoder("MD5");
     }
 
     @Bean
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
         return new JwtAuthenticationTokenFilter();
     }
+    
+    @Bean
+    @Override
+     public AuthenticationManager authenticationManagerBean() throws Exception {
+          return super.authenticationManagerBean();
+    } 
 
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
@@ -71,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.png", "/api/journal/**","/info","/trace","/health","/beans","/env","/metrics","/refresh","/auditevents","/jolokia/**","/heapdump","/threads",
                          "/api/applications/**","/features ","/archaius","/auditevents","/mappings","/resume","/configprops","/restart","/routes","/loggers","/api/notifications/**"
                 ).permitAll()
-                .antMatchers("/api/auth/**").permitAll().antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers("/auth/**").permitAll().antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
         // 禁用缓存
         httpSecurity.headers().cacheControl();

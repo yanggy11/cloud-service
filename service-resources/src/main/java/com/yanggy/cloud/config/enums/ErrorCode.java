@@ -8,7 +8,7 @@ public enum ErrorCode {
 
     //RPC层调用错误码
     UNKONWN_ERROR("00000" + "001", "未知错误"),
-    USER_NAME_PASSWORD_ERROR("00000" + "002", "用户名或密码错误");
+    USER_NAME_PASSWORD_ERROR("00000" + "002", "用户名或密码错误"), AUTHORIZE_FAIL("00000" + "003","鉴权失败");
 
 
     private String msg;

@@ -9,23 +9,8 @@
         <result column="sex" property="sex" jdbcType="INTEGER"/>
     </resultMap>
 
-    <select id="selectById" resultMap="userMap">
-        SELECT id,name,password,age,sex FROM users WHERE id = #{id}
-    </select>
-
-    <insert id="insertUser">
-        INSERT INTO users(name,password, age, sex) VALUES(#{name},#{password}, #{age}, #{sex})
-    </insert>
-
-    <select id="findByName" parameterType="java.lang.String" resultMap="userMap">
-        select id,name,password,age,sex,avater from users where name = #{username}
-    </select>
     <select id="findByNameAndPassword" resultMap="userMap">
         select id,name,password,age,sex from users where name = #{username} and password = #{password}
-    </select>
-
-    <select id="getUserList" resultMap="userMap">
-        select id, name,password,sex,age from users
     </select>
 
     <select id="getUserRoles" parameterType="java.lang.Long" resultType="java.lang.String">
@@ -43,4 +28,63 @@
             (#{userId},#{roleId})
         </foreach>
     </insert>
+    
+    <select id="selectById" resultMap="userMap">
+        SELECT id,name,age,sex,email,phone, avater, create_time, update_time,delete_flag FROM users WHERE id = #{id}
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO users(name,password, age, sex, email, phone,avater) VALUES(#{name},#{password}, #{age}, #{sex}, #{email}, #{phone}, #{avater})
+    </insert>
+
+    <select id="findByName" parameterType="java.lang.String" resultMap="userMap">
+        select id,name,password,age,sex,avater from users where name = #{username}
+    </select>
+
+    <select id="getUserList" resultMap="userMap">
+        select id, name,email,phone,sex,age, create_time,avater, update_time,delete_flag from users
+        <where>
+            <if test="name !=null and name != ''">
+                name = #{name}
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex}
+            </if>
+        </where>
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="countUsers" resultType="java.lang.Integer" parameterType="com.yanggy.cloud.param.UserParam">
+        select count(id) from users
+        <where>
+            <if test="name !=null and name != ''">
+                name = #{name}
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="com.yanggy.cloud.entity.User">
+        update users set name = #{name}, age = #{age}, sex = #{sex}, phone = #{phone}, email = #{email},avater = #{avater} where id = #{id}
+    </update>
+
+    <update id="deleteUser" parameterType="java.lang.Long">
+        UPDATE users set delete_flag = 1 where id = #{userId}
+    </update>
+
+    <update id="deleteBatchUser" parameterType="java.util.List">
+        UPDATE users set delete_flag = 1
+        <where>
+            id in
+            <foreach collection="list" index="index" item="id" close=")" open="(" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+
+    <update id="editPassword">
+        update users set password = #{password}, update_time = current_time() where id = #{userId}
+    </update>
 </mapper>

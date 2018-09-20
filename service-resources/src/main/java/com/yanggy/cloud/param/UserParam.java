@@ -1,9 +1,9 @@
-package com.yanggy.cloud.entity.param;
-
-import lombok.Data;
+package com.yanggy.cloud.param;
 
 import java.io.Serializable;
 import java.util.List;
+
+import lombok.Data;
 
 /**
  * @Author: yangguiyun
@@ -13,7 +13,9 @@ import java.util.List;
 
 @Data
 public class UserParam implements Serializable {
-    private Long userId;
+    
+	private static final long serialVersionUID = -1126725563826464213L;
+	private Long userId;
     private String name;
     private String password;
     private String confirmPassword;

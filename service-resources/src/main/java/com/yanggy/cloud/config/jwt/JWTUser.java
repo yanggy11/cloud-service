@@ -1,17 +1,19 @@
 package com.yanggy.cloud.config.jwt;
 
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Date;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Created by yangguiyun on 2017/9/26.
  */
 public class JWTUser implements UserDetails {
-    private long userId;
+    
+	private static final long serialVersionUID = -8265778093676125189L;
+	private long userId;
     private  String username;
     private  String password;
     private  String email;
@@ -30,7 +32,7 @@ public class JWTUser implements UserDetails {
         this.userId = id;
         this.username = username;
         this.password = password;
-        this.email = email;
+        this.setEmail(email);
         this.authorities = authorities;
         this.lastPasswordResetDate = lastPasswordResetDate;
         this.avater = avater;
@@ -90,4 +92,20 @@ public class JWTUser implements UserDetails {
     public String getAvater() {
         return avater;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

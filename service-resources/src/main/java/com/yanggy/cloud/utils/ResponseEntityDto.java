@@ -11,7 +11,9 @@ import java.io.Serializable;
 
 @Data
 public class  ResponseEntityDto<T> implements Serializable {
-    private String status = "1"; //默认1 成功，0失败
+    
+	private static final long serialVersionUID = 7009441486334531558L;
+	private String status = "1"; //默认1 成功，0失败
     private String msg = "操作成功";
 
     private T data;
