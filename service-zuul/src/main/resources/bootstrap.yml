@@ -27,4 +27,14 @@ eureka:
       defaultZone: http://39.107.97.132:8000/eureka/
 
 ribbon:
-  ReadTimeout: 10000
+  ReadTimeout: 100000
+  connectTimeout: 100000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 100000
+        timeout:
+          enabled: false
