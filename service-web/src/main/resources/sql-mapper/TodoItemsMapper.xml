@@ -25,7 +25,7 @@
 
             <if test="null != beginTime and beginTime != ''">
                 and create_time &gt; #{beginTime}
-                </if>
+            </if>
             <if test="null != endTime and endTime != ''">
                 and create_time &lt; #{endTime}
             </if>
@@ -35,4 +35,15 @@
             </if>
         </where>
     </select>
+
+    <update id="deleteItems">
+        <if test="id > 0 and id != null">
+            update todo_items set delete_flag = 1 where id = #{id}
+        </if>
+    </update>
+    <update id="finishItems">
+        <if test="id > 0 and id != null">
+            update todo_items set status = 1 where id = #{id}
+        </if>
+    </update>
 </mapper>

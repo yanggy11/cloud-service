@@ -32,4 +32,12 @@ public class TodoController {
     public ResponseEntityDto<?> getTodos(@RequestBody TodoItemsDto todoItemsDto) {
         return iTodoItemsService.getTodosByPage(todoItemsDto);
     }
+    @PostMapping(value = "delete")
+    public ResponseEntityDto<?> deleteItems(@RequestBody TodoItemsDto todoItemsDto) {
+        return iTodoItemsService.deleteItems(todoItemsDto);
+    }
+    @PostMapping(value = "finish")
+    public ResponseEntityDto<?> finishItems(@RequestBody TodoItemsDto todoItemsDto) {
+        return iTodoItemsService.finishItems(todoItemsDto);
+    }
 }

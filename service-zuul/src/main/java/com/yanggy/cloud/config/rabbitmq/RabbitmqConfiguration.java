@@ -20,14 +20,15 @@ public class RabbitmqConfiguration {
     @Bean
     public ConnectionFactory connectionFactory() {
 
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setAddresses(rabbitmqProperties.getAddresses());
-        connectionFactory.setUsername(rabbitmqProperties.getUsername());
-        connectionFactory.setPassword(rabbitmqProperties.getPassword());
-        connectionFactory.setVirtualHost("/");
-        connectionFactory.setPublisherConfirms(true); //必须要设置
+        CachingConnectionFactory connection = new CachingConnectionFactory();
 
-        return connectionFactory;
+        connection.setUsername(rabbitmqProperties.getUsername());
+        connection.setAddresses(rabbitmqProperties.getAddresses());
+        connection.setPassword(rabbitmqProperties.getPassword());
+        connection.setVirtualHost("/");
+        connection.setPublisherConfirms(true); //必须要设置
+
+        return connection;
     }
 
 }

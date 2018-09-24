@@ -27,8 +27,14 @@ eureka:
       defaultZone: http://39.107.97.132:8000/eureka/
 
 management:
+  endpoint:
+    bus-refresh:
+      enabled: true
   endpoints:
     web:
       exposure:
         include: bus-refresh
+
+encrypt:
+  key: derrick.yang
 

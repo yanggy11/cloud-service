@@ -10,8 +10,15 @@ spring:
       profile: ${config.profile:dev} # default config profile
       username: yanggy11
       password: ygy591932230
+ribbon:
+  ReadTimeout: 100000
+  SocketTimeout: 100000
+  eager-load:
+    enabled: true #开启饥饿加载模式
+#    clients: [] #指定需要饥饿加载的客户端名称、服务名
 zuul:
   sensitive-headers:
+  ignored-services: "*"
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300
@@ -20,9 +27,6 @@ eureka:
     serviceUrl:
       defaultZone: http://39.107.97.132:8000/eureka/
 
-ribbon:
-  ReadTimeout: 100000
-  connectTimeout: 100000
 hystrix:
   command:
     default:
@@ -32,3 +36,8 @@ hystrix:
             timeoutInMilliseconds: 100000
         timeout:
           enabled: false
+
+management:
+  endpoints:
+    web:
+      expose: "*"

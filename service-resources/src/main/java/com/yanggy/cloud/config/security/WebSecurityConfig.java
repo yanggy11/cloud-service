@@ -1,7 +1,6 @@
 package com.yanggy.cloud.config.security;
 
-import javax.annotation.Resource;
-
+import com.yanggy.cloud.config.jwt.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.yanggy.cloud.config.jwt.JwtAuthenticationTokenFilter;
+import javax.annotation.Resource;
 
 /**
  * Created by yangguiyun on 2017/9/26.
@@ -46,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     // 装载BCrypt密码编码器
     @Bean
-    public MessageDigestPasswordEncoder passwordEncoder() {
-        return new MessageDigestPasswordEncoder("MD5");
+    public SCryptPasswordEncoder passwordEncoder() {
+        return new SCryptPasswordEncoder();
     }
 
     @Bean

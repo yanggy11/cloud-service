@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,79 +32,83 @@ import utils.ResponseEntityDto;
 @Data
 public class PreRequestFilter extends ZuulFilter {
 
-	private RestTemplate restTemplate;
-	private String authHeader;
+    private RestTemplate restTemplate;
+    private String authHeader;
 
-	@Override
-	public String filterType() {
-		return "pre";
-	}
+    @Override
+    public String filterType() {
+        return "pre";
+    }
 
-	@Override
-	public int filterOrder() {
-		return 2;
-	}
+    @Override
+    public int filterOrder() {
+        return 2;
+    }
 
-	@Override
-	public boolean shouldFilter() {
-		if (RequestContext.getCurrentContext().getRequest().getRequestURI().contains("/api/resources")) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean shouldFilter() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object run() throws ZuulException {
-		RequestContext requestContext = RequestContext.getCurrentContext();
-		String token = requestContext.getRequest().getHeader(this.authHeader);
+        HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
+        if (request.getRequestURI().contains("/api/resources")) {
+            return false;
+        }
+        return true;
+    }
 
-		if (StringUtils.isBlank(token)) {
-			requestContext.setSendZuulResponse(false);
-			requestContext.setResponseStatusCode(400);
-			requestContext.setResponseBody("please login");
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object run() throws ZuulException {
+        RequestContext requestContext = RequestContext.getCurrentContext();
+        String token = requestContext.getRequest().getHeader(this.authHeader);
 
-			return null;
-		}
-		// 验证token
-		Map<String, String> map = new HashMap<>();
-		map.put("token", token);
-		ResponseEntityDto<User> response = restTemplate.postForObject("http://RESOURCES/auth/authorization", map,
-				ResponseEntityDto.class);
-		if(requestContext.getRequest().getRequestURI().contains("/api/web/upload")) {
-			return null;
-		}
+        if (StringUtils.isBlank(token)) {
+            requestContext.setSendZuulResponse(false);
+            requestContext.setResponseStatusCode(400);
+            requestContext.setResponseBody("please login");
 
-		InputStream in = null;
-		try {
-			in = requestContext.getRequest().getInputStream();
-			String body = StreamUtils.copyToString(in, Charset.forName("UTF-8"));
-			JSONObject json = JSONObject.parseObject(body);
-			json.put("user", response.getData());
-			String newBody = json.toString();
-			final byte[] reqBodyBytes = newBody.getBytes();
-			requestContext.setRequest(new HttpServletRequestWrapper(requestContext.getRequest()) {
-				@Override
-				public ServletInputStream getInputStream() throws IOException {
-					return new ServletInputStreamWrapper(reqBodyBytes);
-				}
-				@Override
-				public int getContentLength() {
-					return reqBodyBytes.length;
-				}
-				@Override
-				public long getContentLengthLong() {
-					return reqBodyBytes.length;
-				}
-			});
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            return null;
+        }
+        // 验证token
+        Map<String, String> map = new HashMap<>();
+        map.put("token", token);
+        ResponseEntityDto<User> response = restTemplate.postForObject("http://RESOURCES/auth/authorization", map,
+                ResponseEntityDto.class);
+        if (requestContext.getRequest().getRequestURI().contains("/api/upload")) {
+            return null;
+        }
 
-		return null;
-	}
+        InputStream in = null;
+        try {
+            in = requestContext.getRequest().getInputStream();
+            String body = StreamUtils.copyToString(in, Charset.forName("UTF-8"));
+            JSONObject json = JSONObject.parseObject(body);
+            json.put("user", response.getData());
+            String newBody = json.toString();
+            final byte[] reqBodyBytes = newBody.getBytes();
+            requestContext.setRequest(new HttpServletRequestWrapper(requestContext.getRequest()) {
+                @Override
+                public ServletInputStream getInputStream() throws IOException {
+                    return new ServletInputStreamWrapper(reqBodyBytes);
+                }
 
-	public PreRequestFilter(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
-	}
+                @Override
+                public int getContentLength() {
+                    return reqBodyBytes.length;
+                }
+
+                @Override
+                public long getContentLengthLong() {
+                    return reqBodyBytes.length;
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public PreRequestFilter(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 }

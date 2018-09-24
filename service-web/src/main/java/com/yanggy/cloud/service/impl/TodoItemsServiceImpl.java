@@ -51,4 +51,34 @@ public class TodoItemsServiceImpl implements ITodoItemsService {
         }
         return res;
     }
+
+    @Override
+    public ResponseEntityDto<?> deleteItems(TodoItemsDto todoItemsDto) {
+        ResponseEntityDto<?> res;
+
+        try {
+            todoItemsMapper.deleteItems(todoItemsDto);
+            res = ResponseEntityBuilder.buildNormalResponseEntity();
+        }catch (Exception e) {
+            e.printStackTrace();
+            logger.info("查询代办事项发生错误", e);
+            res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
+        }
+        return null;
+    }
+
+    @Override
+    public ResponseEntityDto<?> finishItems(TodoItemsDto todoItemsDto) {
+        ResponseEntityDto<?> res;
+
+        try {
+            todoItemsMapper.finishItems(todoItemsDto);
+            res = ResponseEntityBuilder.buildNormalResponseEntity();
+        }catch (Exception e) {
+            e.printStackTrace();
+            logger.info("查询代办事项发生错误", e);
+            res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
+        }
+        return res;
+    }
 }

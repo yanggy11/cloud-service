@@ -16,4 +16,8 @@ public interface TodoItemsMapper {
     int addTodoItems(TodoItems todoItems);
 
     List<TodoItems> getTodos(TodoItemsDto todoItemsDto);
+
+    int deleteItems(TodoItemsDto todoItemsDto);
+
+    int finishItems(TodoItemsDto todoItemsDto);
 }

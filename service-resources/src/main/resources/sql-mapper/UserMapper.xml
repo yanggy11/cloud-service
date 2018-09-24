@@ -38,7 +38,7 @@
         SELECT id,name,age,sex,email,phone, avater, create_time, update_time,delete_flag FROM users WHERE id = #{id}
     </select>
 
-    <insert id="insertUser">
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO users(name,password, age, sex, email, phone,avater) VALUES(#{name},#{password}, #{age}, #{sex}, #{email}, #{phone}, #{avater})
     </insert>
 

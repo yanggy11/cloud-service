@@ -1,26 +1,26 @@
 package com.yanggy.cloud.utils;
 
 import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 /**
  * @Author: yangguiyun
  * @Date: 2017/10/21 15:43
  * @Description:
  */
-@SuppressWarnings("deprecation")
 public final class PasswordUtil {
 	
-	private static MessageDigestPasswordEncoder md5PasswordEncoder;
+	private static SCryptPasswordEncoder sCryptPasswordEncoder;
 
-	public static MessageDigestPasswordEncoder getMd5PasswordEncoder() {
-		if (null == md5PasswordEncoder) {
-			return new MessageDigestPasswordEncoder("MD5");
+	public static SCryptPasswordEncoder getPasswordEncoder() {
+		if (null == sCryptPasswordEncoder) {
+			return new SCryptPasswordEncoder();
 		}
 
-		return md5PasswordEncoder;
+		return sCryptPasswordEncoder;
 	}
 
-	public static String md5Encoder(String password, String salt) {
-		return getMd5PasswordEncoder().encode(password);
+	public static String passwordEncode(String password) {
+		return getPasswordEncoder().encode(password);
 	}
 }

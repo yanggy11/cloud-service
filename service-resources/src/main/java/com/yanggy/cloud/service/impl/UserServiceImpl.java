@@ -8,6 +8,7 @@ import com.yanggy.cloud.mapper.UserMapper;
 import com.yanggy.cloud.param.UserParam;
 import com.yanggy.cloud.service.IUserService;
 import com.yanggy.cloud.utils.PasswordUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public int register(User user) {
-        user.setPassword(PasswordUtil.md5Encoder(user.getPassword(), null));
+        String password = user.getPassword();
+        if(StringUtils.isBlank(password)) {
+            password = "123456";
+        }
+        user.setPassword(PasswordUtil.passwordEncode(password));
         userMapper.insertUser(user);
         roleMapper.addUserRoles(user);
         return 0;
@@ -91,7 +96,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void editPassword(UserParam userParam) {
-        userParam.setPassword(PasswordUtil.md5Encoder(userParam.getPassword(), null));
+        String password = userParam.getPassword();
+        if(StringUtils.isBlank(password)) {
+            password = "123456";
+        }
+        userParam.setPassword(password);
         userMapper.editPassword(userParam);
     }
 
