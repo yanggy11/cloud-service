@@ -8,7 +8,7 @@ eureka:
     enable-self-preservation: false			# 设为false，关闭自我保护
     eviction-interval-timer-in-ms: 5000
   client:
-    registerWithEureka: false
+    registerWithEureka: true
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
