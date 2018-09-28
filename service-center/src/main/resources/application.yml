@@ -1,5 +1,9 @@
 server:
-  port: 8000
+  port: 8001
+
+spring:
+  application:
+    name: service-center
 
 eureka:
   instance:
@@ -8,7 +12,7 @@ eureka:
     enable-self-preservation: false			# 设为false，关闭自我保护
     eviction-interval-timer-in-ms: 5000
   client:
-    registerWithEureka: true
+    registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://${eureka.instance.hostname}:8000/eureka/

@@ -16,4 +16,4 @@ eureka:
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://39.107.97.132:8000/eureka/
+      defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/

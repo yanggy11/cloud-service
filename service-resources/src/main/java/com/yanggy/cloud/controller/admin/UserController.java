@@ -43,15 +43,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/userList", method = RequestMethod.POST)
-    public Page<List<User>> getUsers(@RequestBody UserParam userParam) {
-        Page<List<User>> page = new Page<>();
+    public ResponseEntityDto<?> getUsers(@RequestBody UserParam userParam) {
+    	ResponseEntityDto<?> res;
         try {
-            page = userService.getUserList(userParam);
+            res = ResponseEntityBuilder.buildNormalResponseEntity(userService.getUserList(userParam));
         } catch (Exception e) {
             e.printStackTrace();
+            
+            res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
         }
 
-        return page;
+        return res;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
