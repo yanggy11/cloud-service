@@ -31,3 +31,5 @@ target/**
 /target/
 .project
 .classpath
+
+resources_api/target/**
