@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanggy.cloud.mapper.MenuMapper">
+    <resultMap id="menuMap" type="com.yang.cloud.entity.Menu">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="menu" property="menu" jdbcType="VARCHAR"/>
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="delete_flag" property="deleteFlag" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <select id="getAllMenusByParent" resultMap="menuMap" parameterType="java.lang.Long">
+        select id, menu, menu_name, parent_id, icon from menu
+        where parent_id = #{parentId}
+        order by id
+    </select>
+    <select id="getAllMenus" resultMap="menuMap" parameterType="com.yang.cloud.param.MenuParam">
+        select id, menu, menu_name, parent_id, icon from menu
+        order by id
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="countMenus" parameterType="com.yang.cloud.param.MenuParam" resultType="java.lang.Integer">
+        select count(id) from menu
+    </select>
+
+    <select id="getMenuById" resultMap="menuMap" parameterType="java.lang.Long">
+        select id, menu, menu_name, parent_id, icon from menu where id = #{id}
+    </select>
+</mapper>
