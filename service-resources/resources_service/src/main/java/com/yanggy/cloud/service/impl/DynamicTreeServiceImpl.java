@@ -2,7 +2,7 @@ package com.yanggy.cloud.service.impl;
 
 import com.yang.cloud.dto.ResponseEntity;
 import com.yang.cloud.entity.DynamicTree;
-import com.yanggy.cloud.mapper.DynamicTreeMapper;
+import com.yang.cloud.mapper.DynamicTreeMapper;
 import com.yanggy.cloud.service.IDynamicTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

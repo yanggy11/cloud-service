@@ -1,7 +1,7 @@
 package com.yanggy.cloud.service.impl;
 
 import com.yang.cloud.entity.RabbitMqMessage;
-import com.yanggy.cloud.mapper.RabbitMqMessageMapper;
+import com.yang.cloud.mapper.RabbitMqMessageMapper;
 import com.yanggy.cloud.service.SendMqService;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

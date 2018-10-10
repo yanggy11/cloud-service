@@ -1,0 +1,8 @@
+com/yang/cloud/mapper/ResourcesMapper.class
+com/yang/cloud/mapper/RoleResourcesMapper.class
+com/yang/cloud/mapper/RabbitMqMessageMapper.class
+com/yang/cloud/mapper/UserMapper.class
+com/yang/cloud/mapper/RouteMapper.class
+com/yang/cloud/mapper/DynamicTreeMapper.class
+com/yang/cloud/mapper/RoleMapper.class
+com/yang/cloud/mapper/MenuMapper.class

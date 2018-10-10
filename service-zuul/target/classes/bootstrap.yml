@@ -11,8 +11,8 @@ spring:
       username: yanggy11
       password: ygy591932230
 ribbon:
-  ReadTimeout: 100000
-  SocketTimeout: 100000
+  ReadTimeout: 202000
+  SocketTimeout: 202000
   eager-load:
     enabled: true #开启饥饿加载模式
 #    clients: [] #指定需要饥饿加载的客户端名称、服务名

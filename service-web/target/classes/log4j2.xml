@@ -27,7 +27,7 @@
         </RollingRandomAccessFile>
     </Appenders>
     <Loggers>
-        <logger name="com.yanggy.cloud.mapper" level="DEBUG"/>
+        <logger name="com.yanggy.com.yang.cloud.mapper" level="DEBUG"/>
         <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="error"/>

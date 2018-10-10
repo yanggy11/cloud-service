@@ -2,7 +2,7 @@ package com.yanggy.cloud.config.jwt;
 
 
 import com.yang.cloud.entity.User;
-import com.yanggy.cloud.mapper.UserMapper;
+import com.yang.cloud.mapper.UserMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

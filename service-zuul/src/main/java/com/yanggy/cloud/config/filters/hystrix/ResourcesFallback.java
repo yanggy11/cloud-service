@@ -60,7 +60,7 @@ public class ResourcesFallback implements FallbackProvider {
 
             @Override
             public InputStream getBody() throws IOException {
-                return new ByteArrayInputStream((route + "fallback").getBytes());
+                return new ByteArrayInputStream((route + "服务不可用").getBytes());
             }
 
             @Override
