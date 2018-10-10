@@ -26,6 +26,8 @@ hs_err_pid*
 */.idea/**
 *.iml
 
+*.lst
+
 target/**
 .settings/**
 /target/
@@ -33,5 +35,3 @@ target/**
 .classpath
 
 resources_api/target/**
-resources_common/target/**
-*.lst

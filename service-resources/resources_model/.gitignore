@@ -33,5 +33,3 @@ target/**
 .classpath
 
 resources_api/target/**
-resources_common/target/**
-*.lst
