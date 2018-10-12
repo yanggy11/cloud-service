@@ -9,12 +9,9 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
  */
 public final class PasswordUtil {
 	
-	private static SCryptPasswordEncoder sCryptPasswordEncoder;
+	private static SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
 
 	public static SCryptPasswordEncoder getPasswordEncoder() {
-		if (null == sCryptPasswordEncoder) {
-			return new SCryptPasswordEncoder();
-		}
 
 		return sCryptPasswordEncoder;
 	}

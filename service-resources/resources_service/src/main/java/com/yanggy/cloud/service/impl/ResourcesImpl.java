@@ -78,9 +78,7 @@ public class ResourcesImpl implements IResourcesService {
     }
 
     private List<ResourcesDto>menuList(Long id, List<Resources> resources) {
-        List<ResourcesDto> children = new ArrayList<>();
-
-        children = resources.stream().filter(resource -> id.equals(resource.getParentId())).map(resource -> {
+        List<ResourcesDto> children = resources.stream().filter(resource -> id.equals(resource.getParentId())).map(resource -> {
             ResourcesDto tree = new ResourcesDto();
             BeanUtils.copyProperties(resource, tree);
             tree.setChildren(menuList(resource.getId(), resources));

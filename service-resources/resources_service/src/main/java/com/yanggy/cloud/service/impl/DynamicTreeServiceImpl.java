@@ -25,9 +25,7 @@ public class DynamicTreeServiceImpl implements IDynamicTreeService {
     private DynamicTreeMapper dynamicTreeMapper;
     @Override
     public ResponseEntity<?> getAllTrees() {
-        List<DynamicTree> dynamicTrees = new ArrayList<>();
-        dynamicTrees = dynamicTreeMapper.getAllTrees();
-        List<DynamicTree> parentNodes = dynamicTrees.stream().filter(dynamicTree -> dynamicTree.getParentId() == 1).collect(Collectors.toList());
+        List<DynamicTree>  dynamicTrees= dynamicTreeMapper.getAllTrees();
         Map<Long, List<DynamicTree>> map = dynamicTrees.stream().filter(dynamicTree -> dynamicTree.getParentId() != 1).collect(Collectors.groupingBy(DynamicTree::getParentId, Collectors.toList()));
 
         return new ResponseEntity<>(map);
