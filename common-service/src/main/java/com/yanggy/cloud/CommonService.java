@@ -15,13 +15,13 @@ import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class UploadService {
+public class CommonService {
     @Bean
     public ExecutorService getThreadPool(){
         return Executors.newFixedThreadPool(100);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(UploadService.class, args);
+        SpringApplication.run(CommonService.class, args);
     }
 }
