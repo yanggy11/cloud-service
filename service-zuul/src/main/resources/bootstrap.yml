@@ -5,11 +5,14 @@ spring:
     name: zuul
   cloud:
     config:
-      uri: http://localhost:8887
+#      uri: http://localhost:8887
       name: zuul # 要读取的配置文件application属性
       profile: ${config.profile:dev} # default config profile
       username: yanggy11
       password: ygy591932230
+      discovery:
+        enabled: true
+        service-id: SERVICE-CONFIG-CENTER
 ribbon:
   ReadTimeout: 202000
   SocketTimeout: 202000
