@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanggy.cloud.mapper.OrderMapper">
+    <resultMap id="todoMap" type="com.yanggy.cloud.entity.Order">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <insert id="insertOrder" parameterType="com.yanggy.cloud.entity.Order" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into order(user_id) values( #{userId})
+    </insert>
+</mapper>

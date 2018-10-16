@@ -14,6 +14,7 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
+
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300
@@ -21,3 +22,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/
+mybatis:
+  mapper-locations: classpath:sql-mapper/*.xml

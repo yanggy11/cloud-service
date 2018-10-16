@@ -18,24 +18,18 @@ import java.util.Enumeration;
 
 @Configuration
 public class FeiginConfiguration {
-
-    @Value("${jwt.header}")
-    private String header;
     @Bean
     public RequestInterceptor headerInterceptor() {
-        return new RequestInterceptor(){
-            @Override
-            public void apply(RequestTemplate template) {
-                ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
-                        .getRequestAttributes();
-                HttpServletRequest request = attributes.getRequest();
-                Enumeration<String> headerNames = request.getHeaderNames();
-                if (null != headerNames) {
-                    while (headerNames.hasMoreElements()) {
-                        String name = headerNames.nextElement();
-                        String values = request.getHeader(name);
-                        template.header(name, values);
-                    }
+        return (template) -> {
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
+                    .getRequestAttributes();
+            HttpServletRequest request = attributes.getRequest();
+            Enumeration<String> headerNames = request.getHeaderNames();
+            if (null != headerNames) {
+                while (headerNames.hasMoreElements()) {
+                    String name = headerNames.nextElement();
+                    String values = request.getHeader(name);
+                    template.header(name, values);
                 }
             }
         };
