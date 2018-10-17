@@ -10,6 +10,7 @@ spring:
       profile: dev # default config profile
       username: yanggy11
       password: ygy591932230
+      label: cloud-service-dev
       discovery:
         enabled: true
         service-id: SERVICE-CONFIG-CENTER
@@ -20,43 +21,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/
-
-#sharding:
-#  jdbc:
-#    datasource:
-#      names: resources-m-0,resources-s-0
-#      resources-m-0:
-#        url: jdbc:mysql://localhost:33062/resources?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
-#        driver-class-name: com.mysql.jdbc.Driver
-#        username: root
-#        password: root
-#        initialSize: 1
-#        minIdle: 1
-#        maxActive: 20
-#        maxWait: 60000
-#        timeBetweenEvictionRunsMillis: 60000
-#        minEvictableIdleTimeMillis: 300000
-#        type: com.alibaba.druid.pool.DruidDataSource
-#      resources-s-0:
-#        url: jdbc:mysql://localhost:3306/resources?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
-#        driver-class-name: com.mysql.jdbc.Driver
-#        username: root
-#        password: root
-#        initialSize: 1
-#        minIdle: 1
-#        maxActive: 20
-#        maxWait: 60000
-#        timeBetweenEvictionRunsMillis: 60000
-#        minEvictableIdleTimeMillis: 300000
-#        type: com.alibaba.druid.pool.DruidDataSource
-#    config:
-#      sharding:
-#        master-slave-rules:
-#          dbs_0:
-#            masterDataSourceName: resources_m_0
-#            slaveDataSourceNames: resources_s_0
-#        props:
-#          sql.show: true
-
 mybatis:
   mapper-locations: classpath:sql-mapper/*.xml

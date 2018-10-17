@@ -10,6 +10,7 @@ spring:
       profile: ${config.profile:dev} # default config profile
       username: yanggy11
       password: ygy591932230
+      label: cloud-service-dev
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300

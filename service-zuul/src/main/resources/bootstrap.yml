@@ -13,6 +13,7 @@ spring:
       discovery:
         enabled: true
         service-id: SERVICE-CONFIG-CENTER
+      label: cloud-service-dev
 ribbon:
   ReadTimeout: 202000
   SocketTimeout: 202000
