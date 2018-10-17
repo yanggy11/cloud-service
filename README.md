@@ -18,7 +18,7 @@
 ```
 
 2.sharding jdbc配置
-有两种方式可以配置sharding jdbc,Java代码或者是yml文件，这里选择的是yml文件，直接在application.yml中增加配置
+有两种方式可以配置sharding jdbc,Java代码或者是yml文件，这里选择的是yml文件，直接在application.yml中增加配置，详细配置请参考官方文档。
 
 ```
 sharding:
@@ -75,35 +75,38 @@ http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.ht
 ```
 
 下载后解压jce文件夹，将文件拷贝到 java_home/jre/lib/security下即可。
-sharding.jdbc.datasource.names=resources-m-0,resources-s-0
-sharding:
-  jdbc:
-    datasource:
-      sharding.jdbc.datasource.names=resources-m-0,resources-s-0
-      sharding.jdbc.datasource.resources-m-0.
-        sharding.jdbc.datasource.resources-m-0.url: jdbc:mysql://localhost:33062/resources?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
-        sharding.jdbc.datasource.resources-m-0.driver-class-name: com.mysql.jdbc.Driver
-        sharding.jdbc.datasource.resources-m-0.username: root
-        sharding.jdbc.datasource.resources-m-0.password: root
-        sharding.jdbc.datasource.resources-m-0.initialSize: 1
-        sharding.jdbc.datasource.resources-m-0.minIdle: 1
-        sharding.jdbc.datasource.resources-m-0.maxActive: 20
-        sharding.jdbc.datasource.resources-m-0.maxWait: 60000
-        sharding.jdbc.datasource.resources-m-0.timeBetweenEvictionRunsMillis: 60000
-        sharding.jdbc.datasource.resources-m-0.minEvictableIdleTimeMillis: 300000
-        sharding.jdbc.datasource.resources-m-0.type: com.alibaba.druid.pool.DruidDataSource
-        sharding.jdbc.datasource.resources-s-0.url: jdbc:mysql://localhost:3306/resources?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
-        sharding.jdbc.datasource.resources-s-0.driver-class-name: com.mysql.jdbc.Driver
-        sharding.jdbc.datasource.resources-s-0.username: root
-        sharding.jdbc.datasource.resources-s-0.password: root
-        sharding.jdbc.datasource.resources-s-0.initialSize: 1
-        sharding.jdbc.datasource.resources-s-0.minIdle: 1
-        sharding.jdbc.datasource.resources-s-0.maxActive: 20
-        sharding.jdbc.datasource.resources-s-0.maxWait: 60000
-        sharding.jdbc.datasource.resources-s-0.timeBetweenEvictionRunsMillis: 60000
-        sharding.jdbc.datasource.resources-s-0.minEvictableIdleTimeMillis: 300000
-        sharding.jdbc.datasource.resources-s-0.type: com.alibaba.druid.pool.DruidDataSource
-            sharding.jdbc.config.sharding.master-slave-rules.dbs_0.masterDataSourceName: resources_m_0
-            sharding.jdbc.config.sharding.master-slave-rules.dbs_0.slaveDataSourceNames: resources_s_0
-          sharding.jdbc.config.sharding.props.sql.show: true
+
+
+### feigin
+1.使用
+```
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
+
+2.feigin拦截器
+拦截feigin请求，添加请求header等。实现定义RequestInterceptor接口实现类，在apply方法中添加相应的逻辑，将实现类注册到spring容器中。feiqin调用时，有些敏感header会被丢弃，所以需要在请求之前将需要的header加上。
+```
+@Configuration
+public class FeiginConfiguration {
+    @Bean
+    public RequestInterceptor headerInterceptor() {
+        return (template) -> {
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
+                    .getRequestAttributes();
+            HttpServletRequest request = attributes.getRequest();
+            Enumeration<String> headerNames = request.getHeaderNames();
+            if (null != headerNames) {
+                while (headerNames.hasMoreElements()) {
+                    String name = headerNames.nextElement();
+                    String values = request.getHeader(name);
+                    template.header(name, values);
+                }
+            }
+        };
+    }
+}
+```
 
