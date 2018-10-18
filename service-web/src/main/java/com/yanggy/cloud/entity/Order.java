@@ -1,5 +1,6 @@
 package com.yanggy.cloud.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,5 +15,6 @@ import java.util.Date;
 public class Order implements Serializable {
     private Long id;
     private Long userId;
-    private Date create_time;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 }

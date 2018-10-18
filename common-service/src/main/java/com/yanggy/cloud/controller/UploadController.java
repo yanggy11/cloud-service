@@ -6,6 +6,7 @@ import com.yanggy.cloud.service.IFileUploadService;
 import com.yanggy.cloud.utils.ResponseEntityBuilder;
 import com.yanggy.cloud.utils.ResponseEntityDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class UploadController {
     @Autowired
     private IFileUploadService fileUploadService;
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @PostMapping(value = "/upload")
     public ResponseEntityDto<?> uploadImage(UploadDto uploadDto) {
 
         ResponseEntityDto<?> res;

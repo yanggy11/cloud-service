@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yanggy.cloud.mapper.OrderMapper">
-    <resultMap id="todoMap" type="com.yanggy.cloud.entity.Order">
+    <resultMap id="orderMap" type="com.yanggy.cloud.entity.Order">
         <result column="id" property="id" jdbcType="BIGINT"/>
         <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <insert id="insertOrder" parameterType="com.yanggy.cloud.entity.Order" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <sql id="order_columns">
+        id, user_id, create_time
+    </sql>
+    <insert id="insertOrder" parameterType="com.yanggy.cloud.entity.Order" useGeneratedKeys="true" keyColumn="id"
+            keyProperty="id">
         insert into order(user_id) values( #{userId})
     </insert>
+
+    <select id="getOrders" parameterType="com.yanggy.cloud.dto.OrderDto" resultMap="orderMap">
+        SELECT
+        <include refid="order_columns"/>
+        FROM order
+        <where>
+            <if test="null != userId and userId > 0">
+                user_id = #{userId}
+            </if>
+
+            ORDER BY id
+            <if test="offset >=0">
+                limit #{offset},#{pageSize}
+            </if>
+        </where>
+    </select>
+
+    <select id="count" parameterType="com.yanggy.cloud.dto.OrderDto" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM order
+        <where>
+            <if test="null != userId and userId > 0">
+                user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getOrderInfo" parameterType="java.lang.Long" resultMap="orderMap">
+        SELECT
+        <include refid="order_columns"/>
+        FROM order
+        <where>
+            id = #{id}
+        </where>
+    </select>
 </mapper>
