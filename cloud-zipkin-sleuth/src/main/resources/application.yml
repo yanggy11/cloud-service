@@ -1,9 +1,0 @@
-server:
-  port: 1989
-
-spring:
-  zipkin:
-    base-url: http://localhost:1989
-  sleuth:
-    sampler:
-      percentage: 1

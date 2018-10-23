@@ -16,4 +16,7 @@ import java.util.Map;
 public interface ResourceFeiginClient {
     @PostMapping(value="/role/getAllRoles")
     ResponseEntityDto<List<Map>> getAllRoles();
+
+    @PostMapping(value="/user/getUserById")
+    ResponseEntityDto<Map> getUserById(Map map);
 }
