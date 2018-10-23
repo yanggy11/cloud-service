@@ -2,6 +2,7 @@ package com.yanggy.cloud.controller.api;
 
 import com.yanggy.cloud.dto.OrderDto;
 import com.yanggy.cloud.entity.Order;
+import com.yanggy.cloud.feginclients.ResourceFeiginClient;
 import com.yanggy.cloud.service.IOrderService;
 import com.yanggy.cloud.utils.ResponseEntityDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ public class OrderController {
 
     @Autowired
     private IOrderService orderService;
+    @Autowired
+    private ResourceFeiginClient resourceFeiginClient;
 
     @PostMapping(value = "add")
     public ResponseEntityDto<?> addOrder(@RequestBody Order order) {
-
+        resourceFeiginClient.getAllRoles();
         return orderService.addOrder(order);
     }
 

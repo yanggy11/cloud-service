@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
  * @Date 9/19/18 22:07
  */
 
-@Configuration
+//@Configuration
 public class RabbitmqConfiguration {
 
-    @Autowired
+//    @Autowired
     private RabbitmqProperties rabbitmqProperties;
 
-    @Bean
+//    @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setAddresses(rabbitmqProperties.getAddresses());

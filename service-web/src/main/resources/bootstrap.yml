@@ -11,6 +11,18 @@ spring:
       username: yanggy11
       password: ygy591932230
       label: cloud-service-dev
+  zipkin:
+    base-url: http://localhost:9411/
+    enabled: true
+    sender:
+      type: rabbit
+
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300
@@ -18,3 +30,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/
+
+mybatis:
+  mapper-locations: classpath:sql-mapper/*.xml
