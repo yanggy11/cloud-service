@@ -1,0 +1,24 @@
+server:
+  port: 1984
+spring:
+  application:
+    name: kothlin
+  cloud:
+    config:
+      uri: http://localhost:8887
+      name: kothlin # 要读取的配置文件application属性
+      profile: ${config.profile:dev} # default config profile
+      username: yanggy11
+      password: ygy591932230
+      label: cloud-service-dev
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 300
+    lease-expiration-duration-in-seconds: 900
+  client:
+    serviceUrl:
+      defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/
+
+mybatis:
+  mapper-locations: classpath:sql-mapper/*.xml

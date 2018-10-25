@@ -23,12 +23,12 @@
             <if test="null != userId and userId > 0">
                 user_id = #{userId}
             </if>
-
-            ORDER BY id
-            <if test="offset >=0">
-                limit #{offset},#{pageSize}
-            </if>
         </where>
+
+        ORDER BY id
+        <if test="offset >=0">
+            limit #{offset},#{pageSize}
+        </if>
     </select>
 
     <select id="count" parameterType="com.yanggy.cloud.dto.OrderDto" resultType="java.lang.Integer">

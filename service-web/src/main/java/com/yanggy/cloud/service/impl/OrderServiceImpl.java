@@ -1,7 +1,10 @@
 package com.yanggy.cloud.service.impl;
 
 import com.yanggy.cloud.dto.OrderDto;
+import com.yanggy.cloud.dto.vo.OrderVo;
+import com.yanggy.cloud.dto.vo.UserVo;
 import com.yanggy.cloud.entity.Order;
+import com.yanggy.cloud.feginclients.ResourceFeiginClient;
 import com.yanggy.cloud.mapper.OrderMapper;
 import com.yanggy.cloud.service.IOrderService;
 import com.yanggy.cloud.utils.ResponseEntityBuilder;
@@ -11,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author derrick.yang
@@ -22,6 +27,8 @@ import java.util.Map;
 public class OrderServiceImpl implements IOrderService {
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private ResourceFeiginClient resourceFeiginClient;
 
     @Override
     public ResponseEntityDto<?> getOrders(OrderDto orderDto) {
@@ -33,9 +40,32 @@ public class OrderServiceImpl implements IOrderService {
         int offset = (orderDto.getPage() - 1) * orderDto.getPageSize();
         orderDto.setOffset(offset);
 
-        data.put("orders", orderMapper.getOrders(orderDto));
+        List<Order> orders = orderMapper.getOrders(orderDto);
+
+        List<OrderVo> orderVos = orders.parallelStream().
+                map(order -> this.getOrderVo(order)).
+                collect(Collectors.toList());
+
+        data.put("orders", orderVos);
 
         return ResponseEntityBuilder.buildNormalResponseEntity(data);
+    }
+
+    private OrderVo getOrderVo(Order order) {
+        OrderVo orderVo = new OrderVo();
+        orderVo.setId(order.getId());
+        orderVo.setUserId(order.getUserId());
+        orderVo.setOrderTime(order.getCreateTime());
+        Map map = new HashMap();
+        map.put("userId", order.getUserId());
+        ResponseEntityDto<UserVo> res = resourceFeiginClient.getUserById(map);
+        if(null != res && null != res.getData()) {
+            UserVo userVo = res.getData();
+            orderVo.setEmail(userVo.getEmail());
+            orderVo.setName(userVo.getName());
+            orderVo.setPhone(userVo.getPhone());
+        }
+        return orderVo;
     }
 
     @Override

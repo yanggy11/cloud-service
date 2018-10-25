@@ -1,28 +1,24 @@
 package com.yanggy.cloud.config.filters;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
-
-import lombok.Data;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.util.StreamUtils;
-import org.springframework.web.client.RestTemplate;
-
 import com.alibaba.fastjson.JSONObject;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import com.netflix.zuul.http.ServletInputStreamWrapper;
-
+import lombok.Data;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.client.RestTemplate;
 import utils.ResponseEntityDto;
+
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author derrick.yang

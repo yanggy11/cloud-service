@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanggy.cloud.kothlin.mapper.TestMapper">
+    <resultMap id="testMap" type="com.yanggy.cloud.kothlin.entity.Test">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insertTest" parameterType="com.yanggy.cloud.kothlin.entity.Test" useGeneratedKeys="true" keyColumn="id"
+            keyProperty="id">
+        insert into test(name) values( #{name})
+    </insert>
+</mapper>

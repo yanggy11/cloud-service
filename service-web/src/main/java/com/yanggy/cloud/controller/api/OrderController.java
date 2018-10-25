@@ -31,7 +31,7 @@ public class OrderController {
         return orderService.addOrder(order);
     }
 
-    @PostMapping(value = "userOrders")
+    @PostMapping(value = "getOrders")
     public ResponseEntityDto<?> getOrdersByUserId(@RequestBody OrderDto order) {
 
         return orderService.getOrders(order);
