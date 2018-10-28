@@ -5,15 +5,15 @@ spring:
     name: resources
   cloud:
     config:
-#      uri: http://localhost:8887
-      name: resources # 要读取的配置文件application属性
+      uri: http://39.107.97.132:8887
+      name: resources # 要读取的配、置文件application属性
       profile: dev # default config profile
       username: yanggy11
       password: ygy591932230
       label: cloud-service-dev
-      discovery:
-        enabled: true
-        service-id: SERVICE-CONFIG-CENTER
+#      discovery:
+#        enabled: true
+#        service-id: SERVICE-CONFIG-CENTER
   zipkin:
     base-url: http://localhost:9411/
     enabled: true

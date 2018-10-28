@@ -1,6 +1,5 @@
 package com.yanggy.cloud.kothlin.mapper;
 
-import com.yanggy.cloud.kothlin.entity.Order
 import com.yanggy.cloud.kothlin.entity.Test
 import org.apache.ibatis.annotations.Mapper
 import org.springframework.stereotype.Component
@@ -14,5 +13,4 @@ import org.springframework.stereotype.Component
 @Component
 interface TestMapper {
     fun insertTest(test: Test): Int
-    fun getORders(order: Order): MutableList<Order>
 }

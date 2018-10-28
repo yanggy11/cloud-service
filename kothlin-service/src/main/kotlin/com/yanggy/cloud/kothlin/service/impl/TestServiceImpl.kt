@@ -1,6 +1,5 @@
 package com.yanggy.cloud.kothlin.service.impl;
 
-import com.yanggy.cloud.kothlin.entity.Order
 import com.yanggy.cloud.kothlin.entity.Test
 import com.yanggy.cloud.kothlin.mapper.TestMapper
 import com.yanggy.cloud.kothlin.service.ITestService
@@ -21,9 +20,5 @@ class TestServiceImpl : ITestService {
         testMapper.insertTest(test);
 
         return test
-    }
-
-    override fun getOrders(order: Order): MutableList<Order> {
-        return testMapper.getORders(order)
     }
 }

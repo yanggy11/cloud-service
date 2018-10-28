@@ -149,3 +149,142 @@ public class MvcConfig extends WebMvcConfigurationSupport {
 }
 ```
 
+#sharding:
+#  jdbc:
+#    datasource:
+#      names: kothlin,db0,db1,db2,kothlins0,kothlins1,db0s0,db0s1,db1s0,db1s1,db2s0,db2s1
+#      kothlin:
+#        url: jdbc:mysql://localhost:33062/kothlin?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        driver-class-name: com.mysql.jdbc.Driver
+#        username: root
+#        password: root
+#        initialSize: 1
+#        minIdle: 1
+#        maxActive: 20
+#        maxWait: 60000
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        type: com.alibaba.druid.pool.DruidDataSource
+#      kothlins0:
+#        url: jdbc:mysql://localhost:3306/kothlin?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        driver-class-name: com.mysql.jdbc.Driver
+#        username: root
+#        password: root
+#        initialSize: 1
+#        minIdle: 1
+#        maxActive: 20
+#        maxWait: 60000
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        type: com.alibaba.druid.pool.DruidDataSource
+#      kothlins1:
+#        url: jdbc:mysql://localhost:33063/kothlin?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        driver-class-name: com.mysql.jdbc.Driver
+#        username: root
+#        password: root
+#        initialSize: 1
+#        minIdle: 1
+#        maxActive: 20
+#        maxWait: 60000
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        type: com.alibaba.druid.pool.DruidDataSource
+#      db0:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:33062/db0?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#      db0s0:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/db0?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#      db0s1:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:33063/db0?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#      db1:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:33062/db1?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#
+#      db1s0:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/db1?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#
+#      db1s1:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:33063/db1?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#
+#      db2:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:33062/db2?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#
+#      db2s0:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/db2?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#
+#      db2s1:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:33063/db2?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=true
+#        username: root
+#        password: root
+#
+## 分库分表规则配置
+#    config:
+#      sharding:
+#        tables:
+#          order:
+#            actual-data-nodes: db$->{0..2}.order$->{0..2}
+#            table-strategy:
+#              inline:
+#                sharding-column: id
+#                algorithm-expression: order$->{id % 3}
+#              key-generator-column-name: id
+#              keyGeneratorColumnName: com.yanggy.cloud.uuid.IpKeyGenerator
+#            databaseStrategy:
+#              inline:
+#                shardingColumn: user_id
+#                algorithm-expression: db$->{user_id % 3}
+#
+##读写分离规则配置
+#        master-slave-rules:
+#          kothlin:
+#            master-data-source-name: kothlin
+#            slave-data-source-names: kothlins0,kothlins1
+#          db0:
+#            master-data-source-name: db0
+#            slave-data-source-names: db0s0,db0s1
+#          db1:
+#            master-data-source-name: db1
+#            slave-data-source-names: db1s0,db1s1
+#          db2:
+#            master-data-source-name: db2
+#            slave-data-source-names: db2s0,db2s1
+#
+##默认数据源
+#        defaultDataSourceName: kothlin
+#        defaultKeyGenerator: com.yanggy.cloud.uuid.IpKeyGenerator
+##打印sql日志
+#        props.sql.show: true
+
+

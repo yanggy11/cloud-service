@@ -1,6 +1,5 @@
 package com.yanggy.cloud.kothlin.service;
 
-import com.yanggy.cloud.kothlin.entity.Order
 import com.yanggy.cloud.kothlin.entity.Test
 
 /**
@@ -9,6 +8,4 @@ import com.yanggy.cloud.kothlin.entity.Test
  */
 interface ITestService {
     fun insertTest(test: Test): Test
-
-    fun getOrders(order: Order): MutableList<Order>
 }

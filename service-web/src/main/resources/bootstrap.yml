@@ -5,7 +5,7 @@ spring:
     name: web
   cloud:
     config:
-      uri: http://localhost:8887
+      uri: http://39.107.97.132:8887
       name: web # 要读取的配置文件application属性
       profile: ${config.profile:dev} # default config profile
       username: yanggy11

@@ -1,0 +1,11 @@
+server:
+  port: 1984
+
+spring:
+  application:
+    name: sidecar
+
+sidecar:
+  port: 1983
+  home-page-uri: http://localhost:1983
+  hostname: http://localhost:1983/health
