@@ -1,7 +1,7 @@
 package com.yanggy.cloud.service.impl;
 
-import com.yanggy.cloud.oss.AliOssUtils;
 import com.yanggy.cloud.service.IFileUploadService;
+import com.yanggy.cloud.utils.AliOssUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

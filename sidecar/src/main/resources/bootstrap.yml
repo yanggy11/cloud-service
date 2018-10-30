@@ -4,8 +4,27 @@ server:
 spring:
   application:
     name: sidecar
+  cloud:
+    config:
+      uri: http://39.107.97.132:8887
+      name: zuul # 要读取的配置文件、application属性
+      profile: ${config.profile:dev} # default config profile
+      username: yanggy11
+      password: ygy591932230
+      #      discovery:
+      #        enabled: true
+      #        service-id: SERVICE-CONFIG-CENTER
+      label: cloud-service-dev
 
 sidecar:
   port: 1983
   home-page-uri: http://localhost:1983
-  hostname: http://localhost:1983/health
+  health-uri: http://localhost:1983/health
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 300
+    lease-expiration-duration-in-seconds: 900
+  client:
+    serviceUrl:
+      defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/

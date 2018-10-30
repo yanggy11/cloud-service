@@ -1,7 +1,7 @@
 package com.yanggy.cloud.controller.api;
 
+import com.yanggy.cloud.config.enums.ErrorCode;
 import com.yanggy.cloud.dto.UploadDto;
-import com.yanggy.cloud.enums.ErrorCode;
 import com.yanggy.cloud.service.IFileUploadService;
 import com.yanggy.cloud.utils.ResponseEntityBuilder;
 import com.yanggy.cloud.utils.ResponseEntityDto;

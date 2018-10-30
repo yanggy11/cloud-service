@@ -1,18 +1,38 @@
-server:
-  port: 8000
-
 spring:
   application:
     name: service-center
+---
+spring:
+  profiles: peer1
+server:
+  port: 8000
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: peer1
   server:
     enable-self-preservation: false			# 设为false，关闭自我保护
     eviction-interval-timer-in-ms: 5000
   client:
-    registerWithEureka: false
+    registerWithEureka: true
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8000/eureka/
+      defaultZone: http://peer2:8000/eureka/
+
+---
+spring:
+  profiles: peer2
+server:
+  port: 8000
+
+eureka:
+  instance:
+    hostname: peer2
+  server:
+    enable-self-preservation: false			# 设为false，关闭自我保护
+    eviction-interval-timer-in-ms: 5000
+  client:
+    fetchRegistry: false
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://peer1:8000/eureka/

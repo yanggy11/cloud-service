@@ -1,5 +1,5 @@
 server:
-  port: 1984
+  port: 1982
 spring:
   application:
     name: kothlin
@@ -14,6 +14,17 @@ spring:
 #      discovery:
 #        enabled: true
 #        service-id: SERVICE-CONFIG-CENTER
+  zipkin:
+    base-url: http://39.107.97.132:9411/
+    enabled: true
+    sender:
+      type: rabbit
+    sleuth:
+      web:
+        client:
+          enabled: true
+      sampler:
+        probability: 1.0
 
 eureka:
   instance:
@@ -22,6 +33,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/
-
-mybatis:
-  mapper-locations: classpath:sql-mapper/*.xml
