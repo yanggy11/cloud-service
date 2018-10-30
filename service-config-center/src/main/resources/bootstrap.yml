@@ -1,11 +1,11 @@
 server:
-  port: 8886
+  port: 8887
 spring:
   application:
     name: service-config-center
   cloud:
     config:
-      uri: http://localhost:8886
+      uri: http://localhost:8887
       server:
         git:
           uri: https://github.com/yanggy11/cloud-config-repo
@@ -22,9 +22,11 @@ eureka:
   instance:
     lease-renewal-interval-in-seconds: 300
     lease-expiration-duration-in-seconds: 900
+    prefer-ip-address: true
+    ip-address: confighost
   client:
     serviceUrl:
-      defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/
+      defaultZone: http://39.107.97.132:8000/eureka/,http://172.31.129.208:8000/eureka/
 
 management:
   endpoint:
