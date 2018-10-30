@@ -15,9 +15,9 @@ spring:
       probability: 1.0
   cloud:
     config:
-      uri: http://localhost:8887
+      uri: http://47.104.89.201:8887
       name: zuul # 要读取的配置文件、application属性
-      profile: ${config.profile:dev} # default config profile
+      profile: ${config.profile:ali} # default config profile
       username: yanggy11
       password: ygy591932230
 #      discovery:

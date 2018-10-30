@@ -5,9 +5,9 @@ spring:
     name: resources
   cloud:
     config:
-      uri: http://localhost:8887
+      uri: http://47.104.89.201:8887
       name: resources # 要读取的配、置文件application属性
-      profile: dev # default config profile
+      profile: ali # default config profile
       username: yanggy11
       password: ygy591932230
       label: cloud-service-dev
