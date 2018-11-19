@@ -1,38 +1,72 @@
 spring:
   application:
     name: service-center
----
-spring:
-  profiles: peer1
+  kafka:
+    bootstrap-servers: 192.168.1.52:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: logstash
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-commit-interval: 100s
+
 server:
   port: 8000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 eureka:
-  instance:
-    hostname: peer1
   server:
     enable-self-preservation: false			# 设为false，关闭自我保护
     eviction-interval-timer-in-ms: 5000
   client:
-    registerWithEureka: true
+    registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://peer2:8000/eureka/
-
----
-spring:
-  profiles: peer2
-server:
-  port: 8000
-
-eureka:
-  instance:
-    hostname: peer2
-  server:
-    enable-self-preservation: false			# 设为false，关闭自我保护
-    eviction-interval-timer-in-ms: 5000
-  client:
-    fetchRegistry: false
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://peer1:8000/eureka/
+      defaultZone: http://localhost:8000/eureka/
+#---
+#spring:
+#  profiles: peer1
+#server:
+#  port: 8000
+#
+#eureka:
+#  instance:
+#    hostname: peer1
+#  server:
+#    enable-self-preservation: false			# 设为false，关闭自我保护
+#    eviction-interval-timer-in-ms: 5000
+#  client:
+#    registerWithEureka: true
+#    fetchRegistry: false
+#    serviceUrl:
+#      defaultZone: http://peer2:8000/eureka/
+#
+#---
+#spring:
+#  profiles: peer2
+#server:
+#  port: 8000
+#
+#eureka:
+#  instance:
+#    hostname: peer2
+#  server:
+#    enable-self-preservation: false			# 设为false，关闭自我保护
+#    eviction-interval-timer-in-ms: 5000
+#  client:
+#    fetchRegistry: false
+#    registerWithEureka: true
+#    serviceUrl:
+#      defaultZone: http://peer1:8000/eureka/

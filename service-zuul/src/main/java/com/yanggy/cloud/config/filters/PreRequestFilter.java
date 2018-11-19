@@ -69,7 +69,7 @@ public class PreRequestFilter extends ZuulFilter {
         map.put("token", token);
         ResponseEntityDto<User> response = restTemplate.postForObject("http://RESOURCES/auth/authorization", map,
                 ResponseEntityDto.class);
-        if (requestContext.getRequest().getRequestURI().contains("/api/upload")) {
+        if (requestContext.getRequest().getRequestURI().contains("/upload")) {
             return null;
         }
 

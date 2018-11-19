@@ -1,0 +1,35 @@
+server:
+  port: 1900
+
+spring:
+  application:
+    name: boot-admin-acutator
+  boot:
+    admin:
+      notify:
+        mail:
+          enabled: true
+          to: yangguiyun250725@163.com
+          from: yangguiyun250725@163.com
+
+  mail:
+    host: smtp.163.com
+    username: yangguiyun250725@163.com
+    password: ygy_576351505jll
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 300
+    lease-expiration-duration-in-seconds: 900
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.52:8000/eureka/
+
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: "*"

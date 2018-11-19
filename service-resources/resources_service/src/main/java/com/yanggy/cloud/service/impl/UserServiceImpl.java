@@ -51,6 +51,7 @@ public class UserServiceImpl implements IUserService {
         }
         user.setPassword(PasswordUtil.passwordEncode(password));
         userMapper.insertUser(user);
+        if(null != user.getRoleIds() && user.getRoleIds().size() > 0)
         roleMapper.addUserRoles(user);
         return 0;
     }

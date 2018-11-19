@@ -24,6 +24,23 @@ spring:
 #        enabled: true
 #        service-id: SERVICE-CONFIG-CENTER
       label: cloud-service-dev
+    stream:
+      default-binder: rabbit # 当kafka和rabbit同时存在时要设置默认的binder
+  kafka:
+    bootstrap-servers: 192.168.1.52:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: logstash
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-commit-interval: 100s
 ribbon:
   ReadTimeout: 202000
   SocketTimeout: 202000
@@ -39,7 +56,7 @@ eureka:
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://39.107.97.132:8000/eureka/,http://47.104.89.201:8000/eureka/
+      defaultZone: http://localhost:8000/eureka/
 
 hystrix:
   command:
@@ -47,11 +64,12 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 100000
+            timeoutInMilliseconds: 10000
         timeout:
-          enabled: false
+          enabled: true
 
 management:
   endpoints:
     web:
-      expose: "*"
+      exposure:
+        include: "*"

@@ -16,5 +16,9 @@ class TestController {
     fun insertTest(): String {
         return "hello, kothilin"
     }
+    @PostMapping(value = "/testFallback")
+    fun testFallback(): String {
+        return "hello, kothilin"
+    }
 }
 

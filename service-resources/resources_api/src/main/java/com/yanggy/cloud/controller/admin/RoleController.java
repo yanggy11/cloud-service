@@ -43,6 +43,8 @@ public class RoleController {
     }
     @PostMapping(value = "getAllRoles")
     public ResponseEntityDto<?> getAllRoles() {
+
+        int i = 1 /0;
         return roleService.getAllRoles();
     }
 }

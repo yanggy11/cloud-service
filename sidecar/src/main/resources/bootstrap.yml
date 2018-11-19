@@ -8,7 +8,7 @@ spring:
     config:
       uri: http://39.107.97.132:8887
       name: zuul # 要读取的配置文件、application属性
-      profile: ${config.profile:dev} # default config profile
+      profile: ${config.profile:ali} # default config profile
       username: yanggy11
       password: ygy591932230
       #      discovery:
@@ -27,4 +27,4 @@ eureka:
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://39.107.97.132:8000/eureka/,http://39.107.97.132:8001/eureka/
+      defaultZone: http://localhost:8000/eureka/

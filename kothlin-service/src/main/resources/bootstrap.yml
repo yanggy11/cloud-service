@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: kothlin
+    admin:
+      enabled: true
   cloud:
     config:
       uri: http://47.104.89.201:8887
@@ -14,8 +16,25 @@ spring:
 #      discovery:
 #        enabled: true
 #        service-id: SERVICE-CONFIG-CENTER
+    stream:
+      default-binder: rabbit
+  kafka:
+    bootstrap-servers: 192.168.1.52:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: logstash
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-commit-interval: 100s
   zipkin:
-    base-url: http://39.107.97.132:9411/
+    base-url: http://localhost:9411/
     enabled: true
     sender:
       type: rabbit
@@ -32,4 +51,10 @@ eureka:
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://39.107.97.132:8000/eureka/,http://47.104.89.201:8000/eureka/
+      defaultZone: http://localhost:8000/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

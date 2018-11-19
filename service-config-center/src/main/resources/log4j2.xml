@@ -25,12 +25,18 @@
                 <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
             </Filters>
         </RollingRandomAccessFile>
+        <!--<Kafka name="Kafka" topic="logstash">-->
+            <!--<PatternLayout pattern="[web:][%X{ip}] %d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%"/>-->
+            <!--<Property name="bootstrap.servers">localhost:9092</Property>-->
+        <!--</Kafka>-->
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <!--<Logger name="org.apache.kafka" level="INFO" />-->
+        <asyncRoot level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="error"/>
             <AppenderRef ref="info_appender"/>
-        </Root>
+            <!--<AppenderRef ref="Kafka"/>-->
+        </asyncRoot>
     </Loggers>
 </Configuration>
