@@ -6,6 +6,8 @@ import com.yanggy.cloud.utils.ResponseEntityDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 /**
  * @author derrick.yang
  * @Date 9/5/18 13:20
@@ -43,8 +45,7 @@ public class RoleController {
     }
     @PostMapping(value = "getAllRoles")
     public ResponseEntityDto<?> getAllRoles() {
-
-        int i = 1 /0;
+        System.out.println(new Date());
         return roleService.getAllRoles();
     }
 }

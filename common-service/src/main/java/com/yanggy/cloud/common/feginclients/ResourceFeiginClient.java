@@ -16,7 +16,7 @@ import java.util.Map;
  */
 
 @Component
-@FeignClient(value = "RESOURCES",configuration = FeiginConfiguration.class, fallback = FallbackService.class)
+@FeignClient(value = "RESOURCES",configuration = FeiginConfiguration.class, fallback = ResourceFeignFallback.class)
 public interface ResourceFeiginClient {
     @PostMapping(value="/role/getAllRoles")
     ResponseEntityDto<List<Map>> getAllRoles();

@@ -6,7 +6,7 @@ spring:
     name: sidecar
   cloud:
     config:
-      uri: http://39.107.97.132:8887
+      uri: http://47.104.89.201:8887
       name: zuul # 要读取的配置文件、application属性
       profile: ${config.profile:ali} # default config profile
       username: yanggy11

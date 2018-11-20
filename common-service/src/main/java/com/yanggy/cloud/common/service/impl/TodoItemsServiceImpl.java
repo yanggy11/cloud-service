@@ -1,6 +1,5 @@
 package com.yanggy.cloud.common.service.impl;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.yanggy.cloud.common.config.enums.ErrorCode;
 import com.yanggy.cloud.common.dto.TodoItemsDto;
 import com.yanggy.cloud.common.entity.TodoItems;
@@ -27,22 +26,18 @@ public class TodoItemsServiceImpl implements ITodoItemsService {
     @Override
     public ResponseEntityDto<?> addTodoItems(TodoItems todoItems) {
         ResponseEntityDto<?> res;
-        int i = 1 /0;
-
-        System.out.println(i);
 
         try {
             todoItemsMapper.addTodoItems(todoItems);
             res = ResponseEntityBuilder.buildNormalResponseEntity();
         }catch (Exception e) {
             e.printStackTrace();
-            logger.info("新增代办事项发生错误", e);
+            logger.info("新增代办事项发生错误:{}", e);
             res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
         }
         return res;
     }
 
-    @HystrixCommand(fallbackMethod = "defaultMethod")
     @Override
     public ResponseEntityDto<?> getTodosByPage(TodoItemsDto todoItemsDto) {
         ResponseEntityDto<?> res;
@@ -51,7 +46,7 @@ public class TodoItemsServiceImpl implements ITodoItemsService {
             res = ResponseEntityBuilder.buildNormalResponseEntity(todoItemsMapper.getTodos(todoItemsDto));
         }catch (Exception e) {
             e.printStackTrace();
-            logger.info("查询代办事项发生错误", e);
+            logger.info("查询代办事项发生错误:{}", e);
             res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
         }
         return res;
@@ -66,10 +61,10 @@ public class TodoItemsServiceImpl implements ITodoItemsService {
             res = ResponseEntityBuilder.buildNormalResponseEntity();
         }catch (Exception e) {
             e.printStackTrace();
-            logger.info("查询代办事项发生错误", e);
+            logger.info("查询代办事项发生错误:{}", e);
             res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
         }
-        return null;
+        return res;
     }
 
     @Override
@@ -81,14 +76,9 @@ public class TodoItemsServiceImpl implements ITodoItemsService {
             res = ResponseEntityBuilder.buildNormalResponseEntity();
         }catch (Exception e) {
             e.printStackTrace();
-            logger.info("查询代办事项发生错误", e);
+            logger.info("查询代办事项发生错误:{}", e);
             res = ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.UNKONWN_ERROR);
         }
         return res;
     }
-
-    public ResponseEntityDto<?> defaultMethod(TodoItemsDto todoItemsDto) {
-        return ResponseEntityBuilder.buildErrorResponseEntity(ErrorCode.DEFAULT_METHOD);
-    }
-
 }

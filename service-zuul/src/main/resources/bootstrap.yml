@@ -46,10 +46,16 @@ ribbon:
   SocketTimeout: 202000
   eager-load:
     enabled: true #开启饥饿加载模式
-#    clients: [] #指定需要饥饿加载的客户端名称、服务名
+    clients: [web, resources, users, consumer] #指定需要饥饿加载的客户端名称、服务名
 zuul:
   sensitive-headers:
   ignored-services: "*"
+  ribbon:
+    eager-load:
+      enabled: true #开启饥饿加载模式
+      clients: [web, resources, users, consumer] #指定需要饥饿加载的客户端名称、服务名
+  ribbon-isolation-strategy: thread
+
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300

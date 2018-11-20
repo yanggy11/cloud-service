@@ -1,5 +1,7 @@
 package com.yanggy.cloud.kothlin.controller;
 
+import com.yanggy.cloud.kothlin.fegin.BooksFeigin
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController
 class TestController {
 
 
+    @Autowired
+    lateinit var booksFeigin: BooksFeigin;
     @PostMapping(value = "/insert")
-    fun insertTest(): String {
-        return "hello, kothilin"
+    fun insertTest(): Any {
+        return booksFeigin.getBooks()
     }
     @PostMapping(value = "/testFallback")
     fun testFallback(): String {

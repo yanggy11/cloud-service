@@ -1,11 +1,9 @@
 /**
  * @Author derrick.yang
- * @Date 28/10/2018
+ * @Date 11/20/18
  */
 
-let mysql = require("mysql");
-let mysqlConf = require("db");
+let mysql = require('mysql');
+let $mysqlConf = require('./db');
 
-let pool = mysql.createPool(mysqlConf);
-
-moudule.exports = pool;
+module.exports = mysql.createPool($mysqlConf);

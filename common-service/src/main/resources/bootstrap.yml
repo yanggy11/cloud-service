@@ -58,4 +58,20 @@ management:
 
 feign:
   hystrix:
+    enabled:
+
+hystrix:
+  metrics:
     enabled: true
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1200
+ribbon:
+  eager-load:
+    enabled: true
+
+mybatis:
+  mapper-locations: classpath:sql-mapper/*.xml
