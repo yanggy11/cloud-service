@@ -28,12 +28,12 @@
 
         <Kafka name="Kafka" topic="logstash">
             <PatternLayout pattern="[web-${sys:local-ip}] %d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%"/>
-            <Property name="bootstrap.servers">localhost:9092</Property>
+            <Property name="bootstrap.servers">39.107.97.132:9092</Property>
         </Kafka>
     </Appenders>
     <Loggers>
         <logger name="com.yanggy.cloud.mapper" level="DEBUG"/>
-        <Logger name="org.apache.kafka" level="INFO" />
+        <Logger name="org.apache.kafka" level="DEBUG" />
         <asyncRoot level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="error"/>

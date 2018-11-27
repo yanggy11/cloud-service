@@ -6,7 +6,8 @@ spring:
     name: sidecar
   cloud:
     config:
-      uri: http://47.104.89.201:8887
+      #      uri: http://47.104.89.201:8887
+      uri: http://localhost:8887
       name: zuul # 要读取的配置文件、application属性
       profile: ${config.profile:ali} # default config profile
       username: yanggy11
@@ -15,6 +16,21 @@ spring:
       #        enabled: true
       #        service-id: SERVICE-CONFIG-CENTER
       label: cloud-service-dev
+  kafka:
+    bootstrap-servers: 39.107.97.132:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: logstash
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-commit-interval: 100s
 
 sidecar:
   port: 1983

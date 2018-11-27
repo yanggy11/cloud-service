@@ -5,6 +5,7 @@ import com.yanggy.cloud.common.dto.UploadDto;
 import com.yanggy.cloud.common.service.IFileUploadService;
 import com.yanggy.cloud.common.utils.ResponseEntityBuilder;
 import com.yanggy.cloud.common.utils.ResponseEntityDto;
+import com.yanggy.cloud.common.utils.UrlEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,9 @@ public class UploadController {
         logger.info("日志 :" + str);
 
         return str;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(UrlEncryptor.e(5));
     }
 }

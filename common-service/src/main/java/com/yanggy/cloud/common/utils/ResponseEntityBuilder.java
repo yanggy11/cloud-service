@@ -20,4 +20,7 @@ public class ResponseEntityBuilder {
     public static <T> ResponseEntityDto<T> buildErrorResponseEntity(ErrorCode errorCode) {
         return new ResponseEntityDto<T>(errorCode.getCode(), errorCode.getMsg());
     }
+    public static <T> ResponseEntityDto<T> buildErrorResponseEntity(String status, String errorMsg) {
+        return new ResponseEntityDto<T>(status, errorMsg);
+    }
 }

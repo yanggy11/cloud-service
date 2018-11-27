@@ -3,19 +3,8 @@ server:
 spring:
   application:
     name: web
-  cloud:
-    config:
-      uri: http://47.104.89.201:8887
-      name: web # 要读取的配置文件application属性
-      profile: ${config.profile:ali} # default config profile
-      username: yanggy11
-      password: ygy591932230
-      label: cloud-service-dev
-    stream:
-      default-binder: rabbit # 当kafka和rabbit同时存在时要设置默认的binder
   zipkin:
     base-url: http://localhost:9411/
-    enabled: true
     sender:
       type: rabbit
   sleuth:
@@ -24,8 +13,22 @@ spring:
         enabled: true
     sampler:
       probability: 1.0
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true #开启服务重试
+    config:
+#      uri: http://47.104.89.201:8887
+      uri: http://localhost:8887
+      name: web # 要读取的配置文件application属性
+      profile: ${config.profile:ali} # default config profile
+      username: yanggy11
+      password: ygy591932230
+      label: cloud-service-dev
+    stream:
+      default-binder: rabbit # 当kafka和rabbit同时存在时要设置默认的binder
   kafka:
-    bootstrap-servers: 192.168.1.52:9092
+    bootstrap-servers: 39.107.97.132:9092
     producer:
       retries: 0
       batch-size: 16384
@@ -47,18 +50,14 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8000/eureka/
 
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
 feign:
   hystrix:
-    enabled:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
 
 hystrix:
   metrics:
@@ -68,10 +67,17 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 1200
+            timeoutInMilliseconds: 1000
+
+# feign饥饿加载配置
 ribbon:
   eager-load:
     enabled: true
+    clients: [RESOURCES]
+
 
 mybatis:
   mapper-locations: classpath:sql-mapper/*.xml
+logging:
+  level:
+    com.yanggy.cloud.common.feginclients.ResourceFeiginClient: DEBUG #开启feign日志

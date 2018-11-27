@@ -6,7 +6,7 @@
 let pool = require('../conf/mysqlPool');
 let bookSql = require('../sql-map/bookSqlMap');
 
-var jsonWrite = function (res, ret) {
+let jsonWrite = function (res, ret) {
     if(typeof ret === 'undefined') {
         res.json({
             code:'1',
@@ -29,7 +29,7 @@ let bookDao = {
 
     addNewBook: (req, res, next) => {
         pool.getConnection((err, connection) => {
-            var param = req.query || req.params;
+            let param = req.query || req.params;
             connection.query(bookSql.add,[param.bookName, param.authorId], (err, result) => {
                 if(result) {
                     result = {
@@ -42,6 +42,33 @@ let bookDao = {
                 connection.release();
             });
         })
+    },
+    deleteBook: (req, res, next) => {
+        pool.getConnection((err, connection) => {
+            let param = req.query || req.params;
+            connection.query(bookSql.deleteBook, [param.id], (error, result) => {
+
+                if(result && result.affectedRows > 0) {
+                    result = {
+                        code: 200,
+                        msg:'删除成功'
+                    }
+                }
+                jsonWrite(res, result);
+                connection.release();
+            })
+        });
+    },
+    updateBook: (req, res, next) => {
+        pool.getConnection((err, connection) => {
+            let param = req.query || req.params;
+            console.log(param);
+            connection.query(bookSql.updateBook, [param.authorId, param.id], (error, result) => {
+
+                jsonWrite(res, result);
+                connection.release();
+            })
+        });
     }
 };
 

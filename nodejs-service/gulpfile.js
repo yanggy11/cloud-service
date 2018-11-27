@@ -35,6 +35,7 @@ gulp.task('server', ["node"], function () {
     browserSync.init(files, {
         proxy: 'http://localhost:1983',
         browser: 'chrome',
+        open: false,
         notify: false,
         port: 4001 //这个是browserSync对http://localhost:3000实现的代理端口
     });

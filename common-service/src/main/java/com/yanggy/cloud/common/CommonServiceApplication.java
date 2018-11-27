@@ -1,11 +1,13 @@
 package com.yanggy.cloud.common;
 
+import com.yanggy.cloud.common.feginclients.FeignLogConfiguration;
 import com.yanggy.cloud.common.utils.LocalIp;
 import org.slf4j.MDC;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
@@ -16,8 +18,9 @@ import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(defaultConfiguration = FeignLogConfiguration.class)
 @EnableCircuitBreaker
+@EnableHystrixDashboard
 public class CommonServiceApplication {
 
     public static void main(String[] args) {

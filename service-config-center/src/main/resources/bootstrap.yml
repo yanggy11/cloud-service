@@ -26,7 +26,7 @@ eureka:
     ip-address: confighost
   client:
     serviceUrl:
-      defaultZone: http://172.31.129.208:8000/eureka/
+      defaultZone: http://localhost:8000/eureka/
 
 management:
   endpoint:

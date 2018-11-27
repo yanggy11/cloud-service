@@ -1,0 +1,78 @@
+server:
+  port: 1985
+
+spring:
+  application:
+    name: gateway
+  kafka:
+    bootstrap-servers: 39.107.97.132:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: logstash
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-commit-interval: 100s
+  cloud:
+    gateway:
+      routes:
+      - id: web
+        uri: http://localhost:1986
+        predicates:
+        - Path=/web/**
+        filters:
+        - StripPrefix=1
+      - id: application
+        uri: http://localhost:1988
+        predicates:
+        - Path=/resources/**
+        filters:
+        - StripPrefix=1
+      - id: kothlin
+        uri: http://localhost:1982
+        predicates:
+        - Path=/kothlin/**
+        filters:
+        - StripPrefix=1
+    stream:
+      default-binder: rabbit
+    config:
+      #      uri: http://47.104.89.201:8887
+      uri: http://localhost:8887
+      name: zuul # 要读取的配置文件、application属性
+      profile: ${config.profile:ali} # default config profile
+      username: yanggy11
+      password: ygy591932230
+      #      discovery:
+      #        enabled: true
+      #        service-id: SERVICE-CONFIG-CENTER
+      label: cloud-service-dev
+  zipkin:
+    base-url: http://localhost:9411/
+    enabled: true
+    sender:
+      type: rabbit
+    sleuth:
+      web:
+        client:
+          enabled: true
+      sampler:
+        probability: 1.0
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 300
+    lease-expiration-duration-in-seconds: 900
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
