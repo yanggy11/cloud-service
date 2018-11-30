@@ -48,18 +48,25 @@ eureka:
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://localhost:8000/eureka/
+      defaultZone: http://derrick:123456@localhost:8000/eureka/
 
+#feign 设置，
 feign:
-  hystrix:
+  httpclient:
+    enabled: false
+  okhttp: #使用OkHttp client
     enabled: true
-  compression:
+  hystrix: #开启hystrix
+    enabled: true
+  compression: #请求压缩
     request:
       enabled: true
     response:
       enabled: true
 
 hystrix:
+  threadpool:
+    coreSize: 50
   metrics:
     enabled: true
   command:
@@ -80,4 +87,4 @@ mybatis:
   mapper-locations: classpath:sql-mapper/*.xml
 logging:
   level:
-    com.yanggy.cloud.common.feginclients.ResourceFeiginClient: DEBUG #开启feign日志
+    com.yanggy.cloud.common.feign.feignclient.ResourceFeiginClient: DEBUG

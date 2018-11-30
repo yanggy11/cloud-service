@@ -1,6 +1,7 @@
 package com.yanggy.cloud.config.jwt;
 
 import com.yang.cloud.entity.User;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -27,7 +28,7 @@ public class JwtUserFactory {
     }
 
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<String> authorities) {
-        return authorities.stream()
+        return authorities.stream().filter(autority -> StringUtils.isNotBlank(autority))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

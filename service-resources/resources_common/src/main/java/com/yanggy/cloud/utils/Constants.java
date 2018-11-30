@@ -17,6 +17,10 @@ public interface Constants {
         String OSS_ACCESS_KEY = "TAIowDSmQznK5FK";
         String OSS_ACCESS_KEY_SECRET = "7bpGZepvHCI4ieSswiLfh5zI296IJh";
     }
+
+    interface UserConstants {
+        String DEFAULT_PASSWORD = "$e0801$zIo/EskQ1HH7BKefSxxsALaSetkcrTQVkkSG3UGazCpmPRVFwA6Sy0cTvygeYjkiIPrM38z547n188o0IapANA==$tjPzcn+aFPzAue/08CmvHV/sP7U00k6lbhWeexkokNg=";
+    }
 }
 
 

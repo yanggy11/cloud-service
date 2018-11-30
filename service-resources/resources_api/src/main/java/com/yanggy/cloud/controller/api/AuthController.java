@@ -60,8 +60,11 @@ public class AuthController {
 		Authentication authentication = null;
 		Map<String, Object> map = new HashMap<>();
 		try {
+			long currentTime = System.currentTimeMillis();
 			authentication = authenticationManager.authenticate(upToken);
 			JWTUser jwtUser = (JWTUser) authentication.getPrincipal();
+
+			System.out.println(System.currentTimeMillis() - currentTime);
 			final String token = new StringBuilder(this.tokenHead).append(" ")
 					.append(jwtTokenUtil.generateToken(jwtUser)).toString();
 			SecurityContextHolder.getContext().setAuthentication(authentication);

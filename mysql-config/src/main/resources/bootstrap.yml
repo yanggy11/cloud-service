@@ -1,0 +1,28 @@
+server:
+  port: 1979
+
+spring:
+  profiles:
+    active: jdbc
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT `KEY`, `VALUE` from PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+  application:
+    name: cloud-config-db
+  datasource:
+    url: jdbc:mysql://39.107.97.132:3306/web
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 300
+    lease-expiration-duration-in-seconds: 900
+    prefer-ip-address: true
+    ip-address: confighost
+  client:
+    serviceUrl:
+      defaultZone: http://derrick:123456@localhost:8000/eureka/

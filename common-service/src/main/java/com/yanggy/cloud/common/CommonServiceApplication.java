@@ -1,8 +1,7 @@
 package com.yanggy.cloud.common;
 
-import com.yanggy.cloud.common.feginclients.FeignLogConfiguration;
+import com.yanggy.cloud.common.fegin.configuration.FeignConfiguration;
 import com.yanggy.cloud.common.utils.LocalIp;
-import org.slf4j.MDC;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -18,7 +17,7 @@ import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(defaultConfiguration = FeignLogConfiguration.class)
+@EnableFeignClients(defaultConfiguration = FeignConfiguration.class)
 @EnableCircuitBreaker
 @EnableHystrixDashboard
 public class CommonServiceApplication {

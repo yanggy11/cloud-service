@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanggy.cloud.common.mapper.AppConfigRelationMapper">
+    <resultMap id="todoMap" type="com.yanggy.cloud.common.entity.AppConfigRelation">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="app_id" property="appId" jdbcType="INTEGER"/>
+        <result column="label" property="label" jdbcType="VARCHAR"/>
+        <result column="profile" property="profile" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="VARCHAR"/>
+        <result column="config_id" property="configId" jdbcType="INTEGER"/>
+    </resultMap>
+</mapper>

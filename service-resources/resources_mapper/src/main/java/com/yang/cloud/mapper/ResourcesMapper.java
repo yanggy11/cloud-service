@@ -4,13 +4,14 @@ import com.yang.cloud.entity.Resources;
 import com.yang.cloud.param.ResourcesParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by yangguiyun on 2017/10/21.
  */
-
+@Component
 @Mapper
 public interface ResourcesMapper {
     List<String> getAllRolesInpage(@Param("size") int size, @Param("offset") int offset);

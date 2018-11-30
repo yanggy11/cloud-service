@@ -19,11 +19,12 @@
     </select>
 
     <select id="getUserRoles" parameterType="java.lang.Long" resultType="java.lang.String">
-        select r.resource from users u left join user_role ur
+        select r.resource from users u
+        join user_role ur
         on u.id = ur.user_id
-        left join role_resources rr
+        join role_resources rr
         on ur.role_id = rr.role_id
-        left join resources r on r.id = rr.resources_id
+        join resources r on r.id = rr.resources_id
         where u.id = #{userId}
     </select>
 
@@ -50,10 +51,19 @@
         select id, name,email,phone,sex,age, create_time,avater, update_time,delete_flag from users
         <where>
             <if test="name !=null and name != ''">
-                name = #{name}
+                and name = #{name}
+            </if>
+            <if test="phone !=null and phone != ''">
+                and phone = #{phone}
             </if>
             <if test="sex != null and sex != ''">
-                sex = #{sex}
+                and sex = #{sex}
+            </if>
+            <if test="timeBegin != null and timeBegin != ''">
+                and create_time &gt;= #{timeBegin}
+            </if>
+            <if test="timeEnd != null and timeEnd != ''">
+                and create_time &lt;= #{timeEnd}
             </if>
         </where>
         limit #{offset}, #{pageSize}

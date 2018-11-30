@@ -1,8 +1,8 @@
 package com.yanggy.cloud.common.api;
 
-import com.yanggy.cloud.common.dto.vo.RoleVo;
 import com.yanggy.cloud.common.dto.vo.UserVo;
-import com.yanggy.cloud.common.feginclients.ResourceFeiginClient;
+import com.yanggy.cloud.common.fegin.feignclient.ConfigServerFeignClient;
+import com.yanggy.cloud.common.fegin.feignclient.ResourceFeiginClient;
 import com.yanggy.cloud.common.utils.ResponseEntityBuilder;
 import com.yanggy.cloud.common.utils.ResponseEntityDto;
 import org.slf4j.Logger;
@@ -10,10 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -30,27 +32,16 @@ public class WebTestController {
 
 	@Autowired
 	private ResourceFeiginClient resourceFeiginClient;
-	@PostMapping(value="testAuthorize")
-	public String testAuthorize(@RequestHeader("Authorization") String Authorization,@RequestBody String string) {
-		return string;
+
+	@Autowired
+	private ConfigServerFeignClient configServerFeignClient;
+	@PostMapping(value="decrypt")
+	public String testAuthorize(@RequestBody Map<String, String> map) {
+		return configServerFeignClient.decrypt(map.get("property"));
 	}
-
-	@PostMapping(value = "testFeigin")
-	public Object testFeigin() {
-		List<RoleVo> roles = (List<RoleVo>) redisTemplate.opsForValue().get("roles:test:1");
-
-		if(null == roles || roles.size() <= 0) {
-			ResponseEntityDto<List<RoleVo>> res = resourceFeiginClient.getAllRoles();
-
-			if(null != res && "1".equals(res.getStatus()) && null != res.getData()) {
-				redisTemplate.opsForValue().set("roles:test:1", res.getData());
-				redisTemplate.expire("roles:test:1", 10000, TimeUnit.MILLISECONDS);
-			}
-
-			roles = res.getData();
-		}
-
-		return ResponseEntityBuilder.buildNormalResponseEntity(roles);
+	@PostMapping(value="encrypt")
+	public String encrypt(@RequestBody Map<String, String> map) {
+		return configServerFeignClient.encrypt(map.get("property"));
 	}
 
 	@PostMapping(value = "getUserById")

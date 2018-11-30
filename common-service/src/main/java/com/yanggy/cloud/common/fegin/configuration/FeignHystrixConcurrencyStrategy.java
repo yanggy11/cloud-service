@@ -1,4 +1,4 @@
-package com.yanggy.cloud.common.feginclients;
+package com.yanggy.cloud.common.fegin.configuration;
 
 import com.netflix.hystrix.HystrixThreadPoolKey;
 import com.netflix.hystrix.HystrixThreadPoolProperties;

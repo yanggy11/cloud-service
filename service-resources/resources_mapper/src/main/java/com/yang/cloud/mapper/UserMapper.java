@@ -4,6 +4,7 @@ import com.yang.cloud.entity.User;
 import com.yang.cloud.param.UserParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @author derrick.yang
  * @Date 9/20/18 09:35
  */
-
+@Component
 @Mapper
 public interface UserMapper {
     User findByName(@Param("username") String name);

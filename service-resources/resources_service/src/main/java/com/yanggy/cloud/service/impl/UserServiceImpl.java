@@ -6,6 +6,7 @@ import com.yang.cloud.mapper.RoleMapper;
 import com.yang.cloud.mapper.UserMapper;
 import com.yang.cloud.param.UserParam;
 import com.yanggy.cloud.service.IUserService;
+import com.yanggy.cloud.utils.Constants;
 import com.yanggy.cloud.utils.PasswordUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -47,12 +48,14 @@ public class UserServiceImpl implements IUserService {
     public int register(User user) {
         String password = user.getPassword();
         if(StringUtils.isBlank(password)) {
-            password = "123456";
+            user.setPassword(Constants.UserConstants.DEFAULT_PASSWORD);
+        }else {
+            user.setPassword(PasswordUtil.passwordEncode(password));
         }
-        user.setPassword(PasswordUtil.passwordEncode(password));
         userMapper.insertUser(user);
-        if(null != user.getRoleIds() && user.getRoleIds().size() > 0)
-        roleMapper.addUserRoles(user);
+        if(null != user.getRoleIds() && user.getRoleIds().size() > 0) {
+            roleMapper.addUserRoles(user);
+        }
         return 0;
     }
 
@@ -74,17 +77,14 @@ public class UserServiceImpl implements IUserService {
         page.setPageSize(userParam.getPageSize());
         page.setPage(userParam.getPage());
         int count = userMapper.countUsers(userParam);
-        page.setTotalRecord(count);
-        page.setTotalPage(count % userParam.getPageSize() == 0 ? count / userParam.getPageSize() : count / userParam.getPageSize() + 1);
-        userParam.setOffset((userParam.getPage() - 1) * userParam.getPageSize());
+        if(count > 0) {
+            page.setTotalRecord(count);
+            page.setTotalPage(count % userParam.getPageSize() == 0 ? count / userParam.getPageSize() : count / userParam.getPageSize() + 1);
+            userParam.setOffset((userParam.getPage() - 1) * userParam.getPageSize());
 
-        List<User> users = userMapper.getUserList(userParam);
-
-        users.parallelStream().forEach(user -> {
-            List<Long> roleIds = roleMapper.getUserRoleByUserId(user.getId());
-            user.setRoleIds(roleIds);
-        });
-        page.setData(users);
+            List<User> users = userMapper.getUserList(userParam);
+            page.setData(users);
+        }
 
         return page;
     }

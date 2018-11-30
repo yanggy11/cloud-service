@@ -6,6 +6,7 @@ import com.yang.cloud.entity.User;
 import com.yang.cloud.param.RoleParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Map;
  * @author derrick.yang
  * @Date 9/4/18 14:43
  */
-
+@Component
 @Mapper
 public interface RoleMapper {
     int deleteRole(List<Long> list);

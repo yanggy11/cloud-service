@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanggy.cloud.common.mapper.PropertiesMapper">
+
+    <select id="getPropertes" parameterType="java.lang.String" resultType="com.yanggy.cloud.common.entity.Properties">
+        select id,`key`,value, application,label,`profile`
+        from PROPERTIES
+        where application = #{application}
+              and label=#{label}
+              and `profile` = #{profile}
+
+    </select>
+</mapper>

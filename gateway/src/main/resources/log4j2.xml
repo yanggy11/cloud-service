@@ -27,7 +27,7 @@
         </RollingRandomAccessFile>
 
         <Kafka name="Kafka" topic="logstash">
-            <PatternLayout pattern="[gateway-${sys:local-ip}] %d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%"/>
+            <PatternLayout pattern="gateway  ${sys:local-ip} [%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5level %logger{1.} [%msg%xEx]"/>
             <Property name="bootstrap.servers">39.107.97.132:9092</Property>
         </Kafka>
     </Appenders>

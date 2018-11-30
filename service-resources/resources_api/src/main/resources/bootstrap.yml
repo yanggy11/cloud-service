@@ -53,7 +53,7 @@ eureka:
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://localhost:8000/eureka/
+      defaultZone: http://derrick:123456@localhost:8000/eureka/
 mybatis:
   mapper-locations: classpath:sql-mapper/*.xml
 

@@ -23,21 +23,15 @@ spring:
     gateway:
       routes:
       - id: web
-        uri: http://localhost:1986
+        uri: lb://WEB
         predicates:
         - Path=/web/**
         filters:
         - StripPrefix=1
       - id: application
-        uri: http://localhost:1988
+        uri: lb://RESOURCES
         predicates:
         - Path=/resources/**
-        filters:
-        - StripPrefix=1
-      - id: kothlin
-        uri: http://localhost:1982
-        predicates:
-        - Path=/kothlin/**
         filters:
         - StripPrefix=1
     stream:
@@ -70,7 +64,7 @@ eureka:
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://localhost:8000/eureka/
+      defaultZone: http://derrick:123456@localhost:8000/eureka/
 management:
   endpoints:
     web:

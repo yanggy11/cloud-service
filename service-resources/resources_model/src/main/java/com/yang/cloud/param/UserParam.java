@@ -25,4 +25,7 @@ public class UserParam implements Serializable {
     private List<Long> userIds;
     private int offset;
     private List<Long> roleIds;
+    private String phone;
+    private String timeBegin;
+    private String timeEnd;
 }

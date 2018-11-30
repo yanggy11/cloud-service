@@ -16,6 +16,10 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       auto-commit-interval: 100s
+  security:
+    user:
+      name: derrick
+      password: 123456
 
 server:
   port: 8000
@@ -34,7 +38,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://localhost:8000/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8000/eureka/
 #---
 #spring:
 #  profiles: peer1

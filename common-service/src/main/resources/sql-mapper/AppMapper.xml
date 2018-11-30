@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanggy.cloud.common.mapper.AppMapper">
+    <resultMap id="appMap" type="com.yanggy.cloud.common.entity.App">
+        <result property="id"         column="id" jdbcType="INTEGER"/>
+        <result property="sysName"    column="sys_name" jdbcType="VARCHAR"/>
+        <result property="sysNameCn"  column="sys_name_cn" jdbcType="VARCHAR"/>
+        <result property="appGroup"   column="app_group" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="base_column">id, sys_name, sys_name_cn, app_group, create_time, update_time</sql>
+    <select id="getApps" resultMap="appMap">
+        select <include refid="base_column"/>
+        from config_center_app
+        limit #{offset}, #{size}
+    </select>
+</mapper>

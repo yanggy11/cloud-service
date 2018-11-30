@@ -4,13 +4,14 @@ import com.yang.cloud.entity.Menu;
 import com.yang.cloud.param.MenuParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by yangguiyun on 2017/10/21.
  */
-
+@Component
 @Mapper
 public interface MenuMapper {
 
