@@ -1,39 +1,43 @@
 server:
   port: 1981
+  tomcat:
+    min-spare-threads: 40
+    max-threads: 200
+  connection-timeout: 5000ms
 spring:
   application:
     name: resources
   cloud:
     config:
-      #      uri: http://47.104.89.201:8887
-      uri: http://localhost:8887
+      uri: http://47.104.89.201:8887
+#      uri: http://localhost:8887
       name: resources # 要读取的配、置文件application属性
       profile: ali # default config profile
       username: yanggy11
       password: ygy591932230
       label: cloud-service-dev
-    stream:
-      default-binder: rabbit
+#    stream:
+#      default-binder: rabbit
   #      discovery:
 #        enabled: true
 #        service-id: SERVICE-CONFIG-CENTER
-  rabbitmq:
-    addresses: 39.107.97.132:5672,39.107.97.132:5673,39.107.97.132:5674
-    username: guest
-    password: guest
-  zipkin:
-    base-url: http://localhost:9411/
-    enabled: true
-    sender:
-      type: rabbit
-  sleuth:
-    web:
-      client:
-        enabled: true
-    sampler:
-      probability: 1.0
+#  rabbitmq:
+#    addresses: 39.107.97.132:5672,39.107.97.132:5673,39.107.97.132:5674
+#    username: guest
+#    password: guest
+#  zipkin:
+#    base-url: http://localhost:9411/
+#    enabled: true
+#    sender:
+#      type: rabbit
+#  sleuth:
+#    web:
+#      client:
+#        enabled: true
+#    sampler:
+#      probability: 1.0
   kafka:
-    bootstrap-servers: 39.107.97.132:9092
+    bootstrap-servers: localhost:9092
     producer:
       retries: 0
       batch-size: 16384
@@ -47,13 +51,17 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       auto-commit-interval: 100s
+  data:
+    solr:
+      host: http://localhost:8983/solr
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://derrick:123456@localhost:8000/eureka/
+      defaultZone: http://47.104.89.201:8000/eureka/
+#      defaultZone: http://derrick:123456@localhost:8000/eureka/
 mybatis:
   mapper-locations: classpath:sql-mapper/*.xml
 
@@ -62,4 +70,15 @@ management:
     web:
       exposure:
         include: "*"
+
+yanggy:
+  tomcat:
+    connection-timeout: 10000
+    acceptor-thread-count: 4
+    min-spare-threads: 100
+    max-spare-threads: 300
+    accept-count: 200
+    max-connections: 800
+    max-threads: 500
+    protocol: org.apache.coyote.http11.Http11AprProtocol
 

@@ -102,4 +102,8 @@
     <update id="editPassword">
         update users set password = #{password}, update_time = current_time() where id = #{userId}
     </update>
+
+    <update id="updateQpUserInfo" parameterType="java.util.Map">
+        update qp_user_info set nickname = #{name} where id = #{id}
+    </update>
 </mapper>

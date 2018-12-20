@@ -9,7 +9,7 @@ import com.yanggy.cloud.service.IUserService;
 import com.yanggy.cloud.utils.Constants;
 import com.yanggy.cloud.utils.PasswordUtil;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+//import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +23,8 @@ import java.util.List;
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements IUserService {
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+//    @Autowired
+//    private RabbitTemplate rabbitTemplate;
     @Autowired
     private UserMapper userMapper;
 

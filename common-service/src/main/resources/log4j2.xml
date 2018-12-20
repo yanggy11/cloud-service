@@ -32,8 +32,8 @@
         </Kafka>
     </Appenders>
     <Loggers>
-        <logger name="com.yanggy.cloud.mapper" level="DEBUG"/>
-        <Logger name="org.apache.kafka" level="DEBUG" />
+        <logger name="com.yanggy.cloud.mapper" level="info"/>
+        <Logger name="org.apache.kafka" level="info" />
         <asyncRoot level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="error"/>

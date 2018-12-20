@@ -6,5 +6,5 @@ package com.yanggy.cloud.service;
  */
 public interface SendMqService {
 
-    void sendMessage(String exchange, String routingkey, Object message);
+//    void sendMessage(String exchange, String routingkey, Object message);
 }

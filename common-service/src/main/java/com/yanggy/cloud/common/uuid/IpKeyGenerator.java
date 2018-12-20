@@ -1,11 +1,13 @@
 package com.yanggy.cloud.common.uuid;
 
 import com.google.common.base.Preconditions;
+import com.opencsv.CSVReader;
 import io.shardingsphere.core.keygen.KeyGenerator;
 import io.shardingsphere.core.keygen.TimeService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -116,5 +118,19 @@ public class IpKeyGenerator implements KeyGenerator {
             time = timeService.getCurrentMillis();
         }
         return time;
+    }
+
+    public static void main(String[] args) throws IOException {
+        String path = "/Users/derrick.yang/Documents/test1.csv";
+        CSVReader csvReader = new CSVReader(new InputStreamReader(new DataInputStream(new FileInputStream(path)), "gbk"));
+
+
+
+        String [] strs = csvReader.readNext();
+        while(strs != null) {
+            strs = csvReader.readNext();
+
+            System.out.println(strs);
+        }
     }
 }

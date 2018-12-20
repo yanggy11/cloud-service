@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author derrick.yang
@@ -29,4 +30,6 @@ public interface UserMapper {
     int editPassword(UserParam userParam);
 
     int deleteBatchUser(List<Long> list);
+
+    int updateQpUserInfo(Map map);
 }

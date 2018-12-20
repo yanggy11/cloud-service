@@ -1,12 +1,8 @@
 package com.yanggy.cloud.common.fegin.feignclient;
 
-import com.yanggy.cloud.common.fegin.configuration.FeignHystrixConcurrencyStrategy;
-import feign.Request;
 import feign.RequestInterceptor;
-import feign.Retryer;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 

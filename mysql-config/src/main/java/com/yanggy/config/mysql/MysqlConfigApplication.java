@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 @EnableConfigServer
 @EnableDiscoveryClient
 @SpringBootApplication

@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/actuator/**", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.ttf", "/**/*.woff2", "/**/*.css", "/**/*.js", "/api/notifications/**",
                         "/**/*.png", "/api/journal/**","/info","/trace","/health","/beans","/env","/metrics","/refresh","/auditevents","/jolokia/**","/heapdump","/threads",
-                         "/api/applications/**","/features ","/archaius","/auditevents","/mappings","/resume","/configprops","/restart","/routes","/**/auth/**","/loggers","/api/notifications/**"
+                         "/api/applications/**","/features ","/archaius","/auditevents","/mappings","/resume","/configprops","/restart","/routes","/**/auth/**","/loggers","/api/notifications/**","/insertData","/solr/**"
                 ).permitAll()
                 .antMatchers("/auth/**").permitAll().antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();

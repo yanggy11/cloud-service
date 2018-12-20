@@ -1,14 +1,18 @@
 package com.yanggy.cloud;
 
 import com.yanggy.cloud.config.LocalIp;
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.Http11NioProtocol;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.MDC;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.concurrent.ExecutorService;
@@ -34,7 +38,7 @@ public class Application {
     }
 
     @Bean
-    public ExecutorService getThreadPool(){
+    public ExecutorService executorService(){
         return Executors.newFixedThreadPool(100);
     }
 
@@ -50,5 +54,18 @@ public class Application {
         }
 
         return ip;
+    }
+
+    public Connector httpConnector() throws IOException {
+        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        Http11NioProtocol http11NioProtocol = (Http11NioProtocol) connector.getProtocolHandler();
+        connector.setPort(8080);
+        //设置最大线程数
+        http11NioProtocol.setMaxThreads(100);
+        //设置初始线程数  最小空闲线程数
+        http11NioProtocol.setMinSpareThreads(20);
+        //设置超时
+        http11NioProtocol.setConnectionTimeout(5000);
+        return connector;
     }
 }
