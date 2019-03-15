@@ -106,4 +106,8 @@
     <update id="updateQpUserInfo" parameterType="java.util.Map">
         update qp_user_info set nickname = #{name} where id = #{id}
     </update>
+
+    <insert id="insertStopWord" parameterType="java.util.Map">
+        insert into stop_sensitive_word(word, type) values(#{word}, #{type})
+    </insert>
 </mapper>

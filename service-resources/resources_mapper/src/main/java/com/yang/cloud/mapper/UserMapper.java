@@ -32,4 +32,6 @@ public interface UserMapper {
     int deleteBatchUser(List<Long> list);
 
     int updateQpUserInfo(Map map);
+
+    int insertStopWord(Map map);
 }

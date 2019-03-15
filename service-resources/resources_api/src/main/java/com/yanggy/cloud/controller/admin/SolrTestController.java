@@ -35,7 +35,6 @@ public class SolrTestController {
     public Object getBySolrId(@PathVariable("id") String id) throws IOException, SolrServerException {
         Map<String,String> queryMap = new HashMap<>();
 
-
         queryMap.put("q","*.*");
         queryMap.put("fq","{!geofilt}");
         queryMap.put("pt","125.441005 42.172992");
