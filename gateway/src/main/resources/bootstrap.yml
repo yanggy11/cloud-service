@@ -5,7 +5,7 @@ spring:
   application:
     name: gateway
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 192.168.1.130:9092
     producer:
       retries: 0
       batch-size: 16384
@@ -58,15 +58,22 @@ spring:
 #          enabled: true
 #      sampler:
 #        probability: 1.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients: [RESOURCES,WEB]
+
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://47.104.89.201:8000//eureka/
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+      defaultZone: http://derrick:123456@localhost:8000/eureka/

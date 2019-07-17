@@ -2,7 +2,7 @@ spring:
   application:
     name: service-center
   kafka:
-    bootstrap-servers: 192.168.10.100:9092
+    bootstrap-servers: 192.168.1.130:9092
     producer:
       retries: 0
       batch-size: 16384

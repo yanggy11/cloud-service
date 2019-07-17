@@ -14,16 +14,33 @@ spring:
     bus:
       trace:
         enabled: true
+    stream:
+      default-binder: rabbit
   rabbitmq:
     addresses: 47.104.89.201:5672
     username: guest
     password: guest
+  kafka:
+    bootstrap-servers: 192.168.1.130:9092
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: logstash
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-commit-interval: 100s
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 300
     lease-expiration-duration-in-seconds: 900
     prefer-ip-address: true
-    ip-address: confighost
+#    ip-address: confighost
   client:
     serviceUrl:
       defaultZone: http://derrick:123456@localhost:8000/eureka/

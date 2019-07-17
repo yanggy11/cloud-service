@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
+import java.net.SocketException;
+
 
 /**
  * @author derrick.yang
@@ -16,6 +18,11 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 @EnableConfigServer
 public class ServiceConfigCenter {
     public static void main(String[] args) {
+        try {
+            System.setProperty("local-ip", LocalIp.getIpAddress().getHostAddress());
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
         SpringApplication.run(ServiceConfigCenter.class, args);
     }
 }

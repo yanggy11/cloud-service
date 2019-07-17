@@ -9,22 +9,16 @@ spring:
     name: resources
   cloud:
     config:
-      uri: http://47.104.89.201:8887
-#      uri: http://localhost:8887
+#      uri: http://47.104.89.201:8887
+      uri: http://localhost:8887
       name: resources # 要读取的配、置文件application属性
       profile: ali # default config profile
       username: yanggy11
       password: ygy591932230
       label: cloud-service-dev
-#    stream:
-#      default-binder: rabbit
-  #      discovery:
-#        enabled: true
-#        service-id: SERVICE-CONFIG-CENTER
-#  rabbitmq:
-#    addresses: 39.107.97.132:5672,39.107.97.132:5673,39.107.97.132:5674
-#    username: guest
-#    password: guest
+    stream:
+      default-binder: rabbit
+
 #  zipkin:
 #    base-url: http://localhost:9411/
 #    enabled: true
@@ -60,8 +54,8 @@ eureka:
     lease-expiration-duration-in-seconds: 900
   client:
     serviceUrl:
-      defaultZone: http://47.104.89.201:8000/eureka/
-#      defaultZone: http://derrick:123456@localhost:8000/eureka/
+#      defaultZone: http://47.104.89.201:8000/eureka/
+      defaultZone: http://derrick:123456@localhost:8000/eureka/
 mybatis:
   mapper-locations: classpath:sql-mapper/*.xml
 
@@ -75,10 +69,10 @@ yanggy:
   tomcat:
     connection-timeout: 10000
     acceptor-thread-count: 4
-    min-spare-threads: 100
-    max-spare-threads: 300
+    min-spare-threads: 2
+    max-spare-threads: 20
     accept-count: 200
-    max-connections: 800
-    max-threads: 500
+    max-connections: 2
+    max-threads: 2
     protocol: org.apache.coyote.http11.Http11AprProtocol
 
